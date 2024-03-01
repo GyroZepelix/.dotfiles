@@ -7,3 +7,4 @@ map <Space>nf <Action>(NewFile)
 map gi <Action>(GotoImplementation)
 map gs <Action>(GotoSuperMethod)
 map gcc <Action>(CommentByLineComment)
+imap jj <Esc>
