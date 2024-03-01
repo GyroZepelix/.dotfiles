@@ -1,2 +1,9 @@
 :set number
 :set relativenumber
+
+map <c-k> <Action>(QuickJavaDoc)
+map <c-x> <Action>(ShowErrorDescription)
+map <Space>nf <Action>(NewFile)
+map gi <Action>(GotoImplementation)
+map gs <Action>(GotoSuperMethod)
+map gcc <Action>(CommentByLineComment)
