@@ -24,7 +24,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Personal Configuration
 
-SC="./.config/shellconfig"
+SC="./.scripts/shell_config"
 
-source $SH/advanced_terminal
-source $SH/add_scripts_to_path
+source $SC/advanced_terminal
+source $SC/add_scripts_to_path
