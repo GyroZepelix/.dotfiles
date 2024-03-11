@@ -8,3 +8,8 @@ map gi <Action>(GotoImplementation)
 map gs <Action>(GotoSuperMethod)
 map gcc <Action>(CommentByLineComment)
 imap jj <Esc>
+xmap <Space>ev <Action>(IntroduceVariable)
+
+nnoremap <c-u> <c-u>zz
+nnoremap <c-d> <c-d>zz
+xnoremap <Space>p "_dP
