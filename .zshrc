@@ -22,13 +22,10 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Bindkeys
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-
 # Personal Configuration
 
 SC="$HOME/.scripts/shell_config"
 
 source $SC/advanced_terminal
 source $SC/add_scripts_to_path
+source $SC/zsh_bindkey
