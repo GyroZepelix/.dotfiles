@@ -18,6 +18,12 @@ pacman -S git
 pacman -S stow
 ```
 
+### Xclip
+
+```
+pacman -S xclip
+```
+
 ## Installation
 
 First, check out the dotfiles repo in your $HOME directory using git
