@@ -9,37 +9,44 @@ on KDE has.
 
 Ensure you have the following installed on your system
 
-### Git
-
 ```
-pacman -S git
-```
-
-### Stow
-
-```
-pacman -S stow
-```
-
-### Xclip
-
-```
-pacman -S xclip
+git
+stow
+tmux
+fzf
+bat
+zoxide
+eza
+Nerdfont - JetbrainsMono Nerd Font
+[tpm](https://github.com/tmux-plugins/tpm) - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[packer](https://github.com/wbthomason/packer.nvim) - git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+kitty
 ```
 
 ## Installation
 
 First, check out the dotfiles repo in your $HOME directory using git
 
-```
+```bash
 $ git clone git@github.com/GyroZepelix/.dotfiles.git --recursive
 $ cd dotfiles
 ```
 
 then use GNU stow to create symlinks
 
-```
+```bash
 $ stow .
+```
+
+next open up tmux and press `prefix + I` to install the plugins
+```bash
+$ tmux
+```
+
+finally open up neovim and run `:PackerInstall` to install the plugins
+
+```bash
+$ nvim
 ```
 
 ## Contributions
