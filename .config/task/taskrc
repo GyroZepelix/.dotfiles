@@ -39,3 +39,11 @@ hooks.location=~/.config/task/hooks
 #include solarized-light-256.theme
 #include no-color.theme
 
+# A system where a task is rated on how many work points it is worth. A work point is equivalent to 1 hour of work.
+# Minimum work points for a task is 0.5
+uda.workpoints.type=numeric
+uda.workpoints.label=WP
+
+
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,workpoints
+report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,WP
