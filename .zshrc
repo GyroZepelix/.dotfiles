@@ -29,3 +29,4 @@ SC="$HOME/.scripts/shell_config"
 source $SC/advanced_terminal
 source $SC/add_scripts_to_path
 source $SC/zsh_bindkey
+source $SC/neovim_default_editor
