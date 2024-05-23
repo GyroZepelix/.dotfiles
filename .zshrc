@@ -30,3 +30,6 @@ source $SC/advanced_terminal
 source $SC/add_scripts_to_path
 source $SC/zsh_bindkey
 source $SC/neovim_default_editor
+
+# Bob (neovim version manager) export path
+export PATH=$PATH:/home/dgjalic/.local/share/bob/nvim-bin
