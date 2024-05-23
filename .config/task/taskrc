@@ -39,6 +39,10 @@ hooks.location=~/.config/task/hooks
 #include solarized-light-256.theme
 #include no-color.theme
 
+# A simple adjustment of colors to reduce the blinding whites
+color.blocking=bright blue
+color.blocked=gray10
+
 # A system where a task is rated on how many work points it is worth. A work point is equivalent to 1 hour of work.
 # Minimum work points for a task is 0.5
 uda.workpoints.type=numeric
