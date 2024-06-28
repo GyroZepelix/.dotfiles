@@ -19,7 +19,6 @@ zoxide
 eza
 Nerdfont - JetbrainsMono Nerd Font
 [tpm](https://github.com/tmux-plugins/tpm) - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-[packer](https://github.com/wbthomason/packer.nvim) - git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 kitty
 taskwarrior
 timewarrior
@@ -45,7 +44,7 @@ next open up tmux and press `prefix + I` to install the plugins
 $ tmux
 ```
 
-finally open up neovim and run `:PackerInstall` to install the plugins
+finally open up neovim and wait for lazy to install all the plugins
 
 ```bash
 $ nvim
