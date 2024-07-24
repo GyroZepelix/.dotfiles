@@ -20,4 +20,4 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-/nix-install-packages.sh
+nix-install-packages.sh
