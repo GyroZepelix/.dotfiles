@@ -36,7 +36,7 @@ timewarrior
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```bash
-$ git clone git@github.com/GyroZepelix/.dotfiles.git --recursive
+$ git clone https://github.com/GyroZepelix/.dotfiles.git --recursive
 $ cd dotfiles
 ```
 
