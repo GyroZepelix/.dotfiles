@@ -1,3 +1,4 @@
+fpath=($HOME/.scripts/completion_zsh $fpath)
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/dgjalic/.zshrc'
 
