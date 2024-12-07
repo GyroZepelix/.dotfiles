@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #alias cat=bat
-alias ls="eza --icons"
-alias tree="eza --icons --tree"
+alias ls="eza --icons always"
+alias tree="eza --icons --tree --git-ignore"
+alias treegit="eza --icons --tree"
 
 eval "$(zoxide init zsh --cmd cd)"
