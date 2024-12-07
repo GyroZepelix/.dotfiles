@@ -1,8 +1,9 @@
 :set number
 :set relativenumber
+:set hlsearch
 
-map <c-k> <Action>(QuickJavaDoc)
-map <c-x> <Action>(ShowErrorDescription)
+map K <Action>(QuickJavaDoc)
+map gl <Action>(ShowErrorDescription)
 map <Space>nf <Action>(NewFile)
 map gi <Action>(GotoImplementation)
 map gs <Action>(GotoSuperMethod)
@@ -10,6 +11,11 @@ map gcc <Action>(CommentByLineComment)
 imap jj <Esc>
 xmap <Space>ev <Action>(IntroduceVariable)
 
+map <esc> :noh<cr>
+
 nnoremap <c-u> <c-u>zz
 nnoremap <c-d> <c-d>zz
 xnoremap <Space>p "_dP
+
+nmap <Space>y "+y
+vmap <Space>y "+y
