@@ -27,6 +27,7 @@ zoxide
 eza
 taskwarrior
 timewarrior
+taskopen
 ```
 
 > **_NOTE:_** The reason why some packages are included in the nix install script and some not is simply because I expect the above ones to already be installed before installing the dotfiles on your systems local package manager.

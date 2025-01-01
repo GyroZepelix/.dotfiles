@@ -43,6 +43,9 @@ hooks.location=~/.config/task/hooks
 color.blocking=bright blue
 color.blocked=gray10
 
+# Hide full annotations from reports
+report.next.annotations=description.count
+
 # A system where a task is rated on how many work points it is worth. A work point is equivalent to 1 hour of work.
 # Minimum work points for a task is 0.5
 # uda.workpoints.type=numeric
@@ -54,6 +57,6 @@ color.blocked=gray10
 uda.pi.type=string
 uda.pi.label=PI
 
-report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,pi
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency,pi
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
 news.version=3.2.0
