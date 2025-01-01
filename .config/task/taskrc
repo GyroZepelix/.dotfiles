@@ -45,10 +45,15 @@ color.blocked=gray10
 
 # A system where a task is rated on how many work points it is worth. A work point is equivalent to 1 hour of work.
 # Minimum work points for a task is 0.5
-uda.workpoints.type=numeric
-uda.workpoints.label=WP
+# uda.workpoints.type=numeric
+# uda.workpoints.label=WP
 
+# PI stands for project iteration and is meant to be used to be able to segment projects into chunks.
+# This would allow me to easly plan out one chunk of work for the tasks I know are possible to complete, then after that
+# have another planning session where I have a clearer image of what needs to be done next, thus making it easier to plan.
+uda.pi.type=string
+uda.pi.label=PI
 
-report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,workpoints
-report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,WP
-news.version=3.1.0
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,pi
+report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
+news.version=3.2.0
