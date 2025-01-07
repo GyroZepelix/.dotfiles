@@ -43,9 +43,6 @@ hooks.location=~/.config/task/hooks
 color.blocking=bright blue
 color.blocked=gray10
 
-# Hide full annotations from reports
-report.next.annotations=description.count
-
 # A system where a task is rated on how many work points it is worth. A work point is equivalent to 1 hour of work.
 # Minimum work points for a task is 0.5
 # uda.workpoints.type=numeric
@@ -56,6 +53,16 @@ report.next.annotations=description.count
 # have another planning session where I have a clearer image of what needs to be done next, thus making it easier to plan.
 uda.pi.type=string
 uda.pi.label=PI
+
+# Implementation of Someday/Maybe list
+# 1. Custom filter for finding +someday tasks
+report.someday.filter=+someday -WAITING
+report.someday.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency,pi
+report.someday.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
+report.someday.sort=urgency-
+# 2. Remove tag someday from normal searches
+report.next.filter=status:pending -WAITING limit:page -someday
+report.list.filter=status:pending -WAITING -someday
 
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency,pi
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
