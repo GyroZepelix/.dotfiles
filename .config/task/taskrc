@@ -66,4 +66,4 @@ report.list.filter=status:pending -WAITING -someday
 
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency,pi
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
-news.version=3.2.0
+news.version=3.3.0
