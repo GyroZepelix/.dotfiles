@@ -64,6 +64,10 @@ report.someday.sort=urgency-
 report.next.filter=status:pending -WAITING limit:page -someday
 report.list.filter=status:pending -WAITING -someday
 
+# Alias for custom reports
+alias.project-top=$HOME/custom_reports/top-projects.sh
+alias.clear=' && echo test'
+
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency,pi
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,PI
 news.version=3.3.0
