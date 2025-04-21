@@ -4,12 +4,12 @@ zstyle :compinstall filename '/home/dgjalic/.zshrc'
 
 autoload -Uz compinit
 compinit
+bindkey -e
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -v
 # End of lines configured by zsh-newuser-install
 
 # Personal Configuration
@@ -37,7 +37,7 @@ export OBSIDIAN="$HOME/Documents/obsidian"
 # Setup Starship
 eval "$(starship init zsh)"
 
-# source /usr/share/nvm/init-nvm.sh
+source /usr/share/nvm/init-nvm.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
