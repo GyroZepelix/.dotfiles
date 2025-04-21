@@ -37,7 +37,7 @@ export OBSIDIAN="$HOME/Documents/obsidian"
 # Setup Starship
 eval "$(starship init zsh)"
 
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

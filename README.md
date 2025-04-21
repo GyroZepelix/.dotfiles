@@ -6,8 +6,7 @@ I currently use a combination of `tmux` and `neovim` as a PDE, combined with
 on KDE has.
 
 ## Requirements
-There are two options of installing the requirements, with or without [Nix](https://nixos.org/)
-If you don't use [Nix](https://nixos.org/) then install the dependencies manualy and skip the Nix section in `Installation`
+There are two options of installing the requirements, with or without an installation script.
 
 Ensure you have the following installed on your system
 ```
@@ -16,10 +15,6 @@ tmux
 neovim
 kitty
 Nerdfont - JetbrainsMono Nerd Font
-```
-... these ones will get installed by nix if you use it
-
-```
 stow
 fzf
 bat
@@ -30,8 +25,6 @@ timewarrior
 taskopen
 ```
 
-> **_NOTE:_** The reason why some packages are included in the nix install script and some not is simply because I expect the above ones to already be installed before installing the dotfiles on your systems local package manager.
-
 ## Installation
 
 First, check out the dotfiles repo in your $HOME directory using git
@@ -41,14 +34,16 @@ $ git clone https://github.com/GyroZepelix/.dotfiles.git --recursive
 $ cd dotfiles
 ```
 
-install the dependencies using Nix by executing `nix-install-packages.sh`
+Install the dependencies using the arch install script
 
 ```bash
-$ chmod +x nix-install-packages.sh
-$ ./nix-install-packages.sh
+$ cd install-scripts
+$ chmod +x arch-quick-setup.sh
+$ ./arch-quick-setup.sh
+$ cd ..
 ```
 
-then use GNU stow to create symlinks
+then use GNU stow to create symlinks ( Only when not using the script )
 
 ```bash
 $ stow .

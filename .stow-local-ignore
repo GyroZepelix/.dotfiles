@@ -21,3 +21,4 @@ _darcs
 ^/COPYING
 
 nix-install-packages.sh
+install-scripts
