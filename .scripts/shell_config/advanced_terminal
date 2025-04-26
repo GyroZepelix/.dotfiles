@@ -1,8 +1,17 @@
 #!/bin/bash
 
-#alias cat=bat
+# Smarter alternatives
 alias ls="eza --icons always"
 alias tree="eza --icons --tree --git-ignore"
 alias treegit="eza --icons --tree"
+
+# Git aliases
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gcm="git commit -m"
+
+# Other
+alias c="clear"
 
 eval "$(zoxide init zsh --cmd cd)"

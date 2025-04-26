@@ -23,6 +23,7 @@ eza
 taskwarrior
 timewarrior
 taskopen
+fcron (or any cron implementation)
 ```
 
 ## Installation
@@ -60,6 +61,23 @@ finally open up neovim and wait for lazy to install all the plugins
 ```bash
 $ nvim
 ```
+
+## Other features
+### Taskwarrior and Timewarrior syncing
+Using Taskwarrior and Timewarrior with multiple devices can be abit tricky seeing as they are not one unified app that can easly be synced.
+Because of that I needed to employ two different pieces of software to keep both logging techniques synced on all of my devices.
+For Taskwarrior I am using [taskchampion-sync-server](https://github.com/GothenburgBitFactory/taskchampion-sync-server) by GothenburgBitFactory while for Timewarrior I use [timew-sync-server](https://github.com/timewarrior-synchronize/timew-sync-server).
+They are two pieces of software working quite so sadly its not something that can be integrated together quite easly, but seeing how much both of them help me with productivity, it's an evil deemed neccesary. ( Until I stumble on something that could fit my workstyle better that is :D )
+
+For the backend you can find the way I have it hosted on my [server dockerfiles repositry (WIP)](), while for local auto syncing I have made two simple scripts under `.config/task/scripts/...` that can be added to your chosen implementation of cron to run however often you want.
+```bash
+$ fcrontab -e
+
+# I have mine set to run every 15 minutes, which might be too often!
+*/15 * * * * $HOME/.config/task/scripts/cron-update.sh
+*/15 * * * * $HOME/.config/task/scripts/timew-cron-update.sh
+```
+
 
 ## Contributions
 Your contributions are always welcome! If you would like to improve the dotfiles or have suggestions, please feel free to:

@@ -30,6 +30,8 @@ export PATH=$PATH:/home/dgjalic/.local/share/bob/nvim-bin
 # Export nix commands
 export PATH=$PATH:$HOME/.nix-profile/bin
 
+export PATH=$PATH:$HOME/.local/bin
+
 # Export default path of obsidian
 # export OBSIDIAN_VAULT_PATH=...
 export OBSIDIAN="$HOME/Documents/obsidian"

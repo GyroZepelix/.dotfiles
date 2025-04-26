@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "\n --- Installing base arch packages..."
-sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm
+sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm fcron
 echo "\n --- Installing AUR packages..."
 yay -S brave-bin task timew taskopen 
 echo "\n --- Symlinking everything..."
