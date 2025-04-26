@@ -24,6 +24,8 @@ taskwarrior
 timewarrior
 taskopen
 fcron (or any cron implementation)
+rustup
+kanata
 ```
 
 ## Installation
@@ -77,6 +79,12 @@ $ fcrontab -e
 */15 * * * * $HOME/.config/task/scripts/cron-update.sh
 */15 * * * * $HOME/.config/task/scripts/timew-cron-update.sh
 ```
+
+### Keyboard remaping using Kanata
+Using Kanata I am able to remap the Capslock key to increase the efficiency I am able to move and use shortcuts. For example I remapped Capslock to work as Esc on a quick tap, but work as ctrl when held down.
+Other examples can be found inside `.config/kanata/kanata.kdb`.
+
+For installation please either follow the [Kanata official Github page](https://github.com/jtroo/kanata) or use one of the provided installation scripts inside `install-scripts`!
 
 
 ## Contributions
