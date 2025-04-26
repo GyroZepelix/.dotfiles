@@ -25,7 +25,7 @@ source $SC/neovim_default_editor
 export MANPAGER='nvim +Man!'
 
 # Bob (neovim version manager) export path
-export PATH=$PATH:/home/dgjalic/.local/share/bob/nvim-bin
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
 # Export nix commands
 export PATH=$PATH:$HOME/.nix-profile/bin
