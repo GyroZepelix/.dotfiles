@@ -4,7 +4,7 @@ zstyle :compinstall filename '/home/dgjalic/.zshrc'
 
 autoload -Uz compinit
 compinit
-bindkey -e
+bindkey -v
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile

@@ -56,6 +56,8 @@ if [[ "$resp" =~ ^[Yy]$ ]]; then
     sudo usermod -aG uinput,input "$USER"
     echo -e "\n---/--- Adding udev rule for uinput..."
     echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/kanata.rules
+    echo -e "\n---/--- Loading uinput on boot..."
+    echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf
     echo -e "\n---/--- Installing Systemd for Kanata..."
     sudo cp install-scripts/systemd-services/kanata-hidden.service /etc/systemd/user
     sudo systemctl --user daemon-reload
