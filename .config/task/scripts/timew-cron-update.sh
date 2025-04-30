@@ -9,7 +9,7 @@ if {
     2>/dev/null >"$LOCK_FILE"
 }; then
     trap 'rm -f "$LOCK_FILE"' EXIT
-    output=$(timewsync)
+    output=$(timewsync 2>&1 || timewsync 2>&1)
     echo "$(date "+%F %T") - $output" >>"$SYNC_LOG" 2>&1
 fi
 
