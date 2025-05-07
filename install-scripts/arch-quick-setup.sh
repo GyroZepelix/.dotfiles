@@ -12,10 +12,10 @@ else
 fi
 
 # --- Install AUR packages ---
-read -p "Install AUR packages (brave-bin, task, kanata, etc)? [y/N] " resp
+read -p "Install AUR packages (task, timew, kanata-bin, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo -e "\n--- Installing AUR packages..."
-    yay -S brave-bin task timew taskopen kanata
+    yay -S task timew kanata-bin
 else
     echo "Skipping AUR packages."
 fi
@@ -60,8 +60,8 @@ if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf
     echo -e "\n---/--- Installing Systemd for Kanata..."
     sudo cp install-scripts/systemd-services/kanata-hidden.service /etc/systemd/user
-    sudo systemctl --user daemon-reload
-    sudo systemctl --user enable kanata
+    systemctl --user daemon-reload
+    systemctl --user enable kanata
     echo -e "\n---/--- Please reboot your system for Kanata to work properly!"
 else
     echo "Skipping Kanata setup."
