@@ -1,0 +1,10 @@
+[Unit]
+Description=15-minute Taskwarrior sync
+
+[Timer]
+OnBootSec=1m
+OnUnitActiveSec=15m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

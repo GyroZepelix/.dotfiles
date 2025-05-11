@@ -6,7 +6,7 @@ cd ..
 read -p "Install base Arch packages (git, tmux, neovim, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo -e "\n--- Installing base arch packages..."
-    sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm fcron rustup zsh ttf-jetbrains-mono-nerd
+    sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm rustup zsh ttf-jetbrains-mono-nerd
 else
     echo "Skipping base Arch packages."
 fi
@@ -66,4 +66,21 @@ if [[ "$resp" =~ ^[Yy]$ ]]; then
 else
     echo "Skipping Kanata setup."
 fi
+
+read -p "Set up Taskwarrior sync? [y/N] " resp
+if [[ "$resp" =~ ^[Yy]$ ]]; then
+    echo -e "\n--- Setting up Taskwarrior sync"
+    sudo cp install-scripts/systemd-services/task-sync.service /etc/systemd/user
+    sudo cp install-scripts/systemd-services/task-sync.timer /etc/systemd/user
+    systemctl --user daemon-reload
+    systemctl --user enable task-sync.service
+    systemctl --user enable task-sync.timer
+    systemctl --user start task-sync.service
+    systemctl --user start task-sync.timer
+    echo -e "\n--- Please setup your credentials for taskw sync in .taskrc!"
+    echo -e "\n--- ( For more information run 'man task-sync' )"
+else
+    echo "Skipping Timewarrior sync setup."
+fi
+
 
