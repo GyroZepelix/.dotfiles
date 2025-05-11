@@ -6,7 +6,7 @@ cd ..
 read -p "Install base Arch packages (git, tmux, neovim, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo -e "\n--- Installing base arch packages..."
-    sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm fcron rustup
+    sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm fcron rustup zsh ttf-jetbrains-mono-nerd
 else
     echo "Skipping base Arch packages."
 fi
@@ -42,7 +42,7 @@ fi
 read -p "Change default shell to ZSH? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo -e "\n--- Changing default shell to ZSH..."
-    chsh -s /bin/zsh
+    chsh -s /usr/bin/zsh
 else
     echo "Skipping shell change."
 fi
@@ -61,7 +61,7 @@ if [[ "$resp" =~ ^[Yy]$ ]]; then
     echo -e "\n---/--- Installing Systemd for Kanata..."
     sudo cp install-scripts/systemd-services/kanata-hidden.service /etc/systemd/user
     systemctl --user daemon-reload
-    systemctl --user enable kanata
+    systemctl --user enable kanata-hidden.service
     echo -e "\n---/--- Please reboot your system for Kanata to work properly!"
 else
     echo "Skipping Kanata setup."
