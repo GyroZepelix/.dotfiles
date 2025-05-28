@@ -31,7 +31,7 @@ contexts = [
 ]
 
 [docker_context]
-disabled = true
+disabled = false
 
 # [palettes.catppuccin_mocha]
 # rosewater = "#f5e0dc"
