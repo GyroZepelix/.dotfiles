@@ -1,21 +1,334 @@
-:set number
-:set relativenumber
-:set hlsearch
+" .ideavimrc - IdeaVim Configuration
+" Emulates the essential features from the Neovim configuration
 
-map K <Action>(QuickJavaDoc)
-map gl <Action>(ShowErrorDescription)
-map <Space>nf <Action>(NewFile)
-map gi <Action>(GotoImplementation)
-map gs <Action>(GotoSuperMethod)
-map gcc <Action>(CommentByLineComment)
-imap jj <Esc>
-xmap <Space>ev <Action>(IntroduceVariable)
+" ============================================================================
+" BASIC SETTINGS
+" ============================================================================
 
-map <esc> :noh<cr>
+" Leader key
+let mapleader = " "
+let maplocalleader = "\\"
 
-nnoremap <c-u> <c-u>zz
-nnoremap <c-d> <c-d>zz
-xnoremap <Space>p "_dP
+" Line numbers
+set number
+set relativenumber
 
-nmap <Space>y "+y
-vmap <Space>y "+y
+" Search settings
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Indentation
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+
+" Editor behavior
+set wrap=0
+set scrolloff=8
+set sidescrolloff=8
+set visualbell
+set noerrorbells
+
+" ============================================================================
+" IDEAVIM EXTENSIONS
+" ============================================================================
+
+" Enable IdeaVim extensions for enhanced functionality
+set surround
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set exchange
+set vim-paragraph-motion
+set textobj-indent
+set highlightedyank
+
+" ============================================================================
+" CORE KEY REMAPPINGS
+" ============================================================================
+
+" File explorer (Project view)
+nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
+
+" Better scrolling with centering
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" Center search results
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+xnoremap <leader>p "_dP
+
+" System clipboard operations
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" Alternative escape
+inoremap <C-c> <Esc>
+
+" ============================================================================
+" TELESCOPE-LIKE FUNCTIONALITY (using IntelliJ actions)
+" ============================================================================
+
+" File navigation
+nnoremap <leader>pf :action GotoFile<CR>
+nnoremap <C-p> :action GotoFile<CR>
+nnoremap <leader>ps :action FindInPath<CR>
+nnoremap <leader>pb :action RecentFiles<CR>
+
+" Additional useful file actions
+nnoremap <leader>pr :action RecentFiles<CR>
+nnoremap <leader>pc :action GotoClass<CR>
+nnoremap <leader>pa :action GotoAction<CR>
+
+" ============================================================================
+" LSP-LIKE FUNCTIONALITY (using IntelliJ LSP features)
+" ============================================================================
+
+" Navigation
+nnoremap K :action QuickJavaDoc<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap go :action GotoTypeDeclaration<CR>
+nnoremap gr :action FindUsages<CR>
+
+" Diagnostics and errors
+nnoremap gl :action ShowErrorDescription<CR>
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+
+" Code actions
+nnoremap <F2> :action RenameElement<CR>
+nnoremap <F3> :action ReformatCode<CR>
+vnoremap <F3> :action ReformatCode<CR>
+nnoremap <leader>a :action ShowIntentionActions<CR>
+
+" Code generation and refactoring
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>cr :action Refactorings.QuickListPopupAction<CR>
+nnoremap <leader>cf :action ReformatCode<CR>
+nnoremap <leader>co :action OptimizeImports<CR>
+
+" ============================================================================
+" DEBUGGING FUNCTIONALITY
+" ============================================================================
+
+" Debug actions (emulating DAP functionality)
+nnoremap <leader>b :action ToggleLineBreakpoint<CR>
+nnoremap <leader>gb :action RunToCursor<CR>
+nnoremap <leader>gk :action EvaluateExpression<CR>
+
+" Debug controls
+nnoremap <F5> :action Resume<CR>
+nnoremap <F6> :action StepInto<CR>
+nnoremap <F7> :action StepOver<CR>
+nnoremap <F8> :action StepOut<CR>
+nnoremap <F10> :action Rerun<CR>
+
+" Debug views
+nnoremap <leader>db :action ViewBreakpoints<CR>
+nnoremap <leader>dc :action ActivateDebugToolWindow<CR>
+
+" ============================================================================
+" GIT INTEGRATION
+" ============================================================================
+
+" Git actions (emulating vim-fugitive and gitsigns)
+nnoremap <leader>gs :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>gc :action CheckinProject<CR>
+nnoremap <leader>gp :action Vcs.Push<CR>
+nnoremap <leader>gl :action Vcs.Show.Log<CR>
+
+" Git hunks navigation
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+
+" Git hunk actions
+nnoremap <leader>hs :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>hr :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
+nnoremap <leader>hb :action Annotate<CR>
+nnoremap <leader>hd :action Compare.SameVersion<CR>
+
+" ============================================================================
+" FILE TREE / EXPLORER (Neo-tree equivalent)
+" ============================================================================
+
+" File tree operations
+nnoremap <leader>pe :action SelectInProjectView<CR>
+nnoremap <leader>pt :action ActivateProjectToolWindow<CR>
+
+" ============================================================================
+" WINDOW MANAGEMENT (tmux-navigator equivalent)
+" ============================================================================
+
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Split management
+nnoremap <leader>vs :action SplitVertically<CR>
+nnoremap <leader>hs :action SplitHorizontally<CR>
+nnoremap <leader>wc :action Unsplit<CR>
+nnoremap <leader>wo :action UnsplitAll<CR>
+
+" Tab management
+nnoremap <leader>tn :action NextTab<CR>
+nnoremap <leader>tp :action PreviousTab<CR>
+nnoremap <leader>tc :action CloseContent<CR>
+nnoremap <leader>to :action CloseAllEditorsButActive<CR>
+
+" ============================================================================
+" UTILITY FUNCTIONS
+" ============================================================================
+
+" Undo tree (closest equivalent)
+nnoremap <leader>u :action LocalHistory.ShowHistory<CR>
+
+" Run actions
+nnoremap <leader>rr :action Run<CR>
+nnoremap <leader>rc :action RunClass<CR>
+nnoremap <leader>rt :action RunTests<CR>
+
+" Build actions
+nnoremap <leader>bb :action CompileDirty<CR>
+nnoremap <leader>ba :action Compile<CR>
+
+" Terminal
+nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
+
+" ============================================================================
+" ADDITIONAL INTELLIJ-SPECIFIC MAPPINGS
+" ============================================================================
+
+" Code folding
+nnoremap za :action ExpandCollapseToggleAction<CR>
+nnoremap zA :action ExpandCollapseToggleAction<CR>
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
+nnoremap zM :action CollapseAll<CR>
+nnoremap zR :action ExpandAll<CR>
+
+" Bookmarks
+nnoremap mm :action ToggleBookmark<CR>
+nnoremap ma :action ToggleBookmarkWithMnemonic<CR>
+nnoremap ms :action ShowBookmarks<CR>
+
+" Tool windows
+nnoremap <leader>1 :action ActivateProjectToolWindow<CR>
+nnoremap <leader>2 :action ActivateBookmarksToolWindow<CR>
+nnoremap <leader>3 :action ActivateFindToolWindow<CR>
+nnoremap <leader>4 :action ActivateRunToolWindow<CR>
+nnoremap <leader>5 :action ActivateDebugToolWindow<CR>
+nnoremap <leader>6 :action ActivateProblemsViewToolWindow<CR>
+nnoremap <leader>7 :action ActivateStructureToolWindow<CR>
+nnoremap <leader>8 :action ActivateServicesToolWindow<CR>
+nnoremap <leader>9 :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>0 :action ActivateTerminalToolWindow<CR>
+
+" Database (vim-dadbod equivalent)
+nnoremap <leader>db :action ActivateDatabaseToolWindow<CR>
+
+" Hide all tool windows (focus mode)
+nnoremap <leader>z :action HideAllWindows<CR>
+
+" Zen mode / Distraction free mode
+nnoremap <leader>zz :action ToggleDistractionFreeMode<CR>
+
+" Recent locations (like jumplist)
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
+
+" Quick documentation and parameter info
+nnoremap <leader>k :action QuickJavaDoc<CR>
+nnoremap <leader>K :action ParameterInfo<CR>
+
+" Generate code
+nnoremap <leader>gc :action Generate<CR>
+
+" Extract refactorings
+vnoremap <leader>em :action ExtractMethod<CR>
+vnoremap <leader>ev :action IntroduceVariable<CR>
+vnoremap <leader>ec :action IntroduceConstant<CR>
+vnoremap <leader>ef :action IntroduceField<CR>
+
+" ============================================================================
+" CUSTOM COMMANDS AND SETTINGS
+" ============================================================================
+
+" Keep visual selection when indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Move lines up and down
+nnoremap <A-j> :action MoveLineDown<CR>
+nnoremap <A-k> :action MoveLineUp<CR>
+vnoremap <A-j> :action MoveLineDown<CR>
+vnoremap <A-k> :action MoveLineUp<CR>
+
+" Duplicate line
+nnoremap <leader>ld :action EditorDuplicate<CR>
+
+" Join lines smartly
+nnoremap J :action EditorJoinLines<CR>
+
+" Select all
+nnoremap <leader>sa :action $SelectAll<CR>
+
+" Close all notifications
+nnoremap <leader>nc :action CloseAllNotifications<CR>
+
+" ============================================================================
+" IDE SPECIFIC FEATURES
+" ============================================================================
+
+" Show usages
+nnoremap <leader>su :action ShowUsages<CR>
+nnoremap <leader>fu :action FindUsages<CR>
+
+" Inline refactoring
+nnoremap <leader>ri :action Inline<CR>
+
+" Safe delete
+nnoremap <leader>sd :action SafeDelete<CR>
+
+" Copy reference (like file path)
+nnoremap <leader>cp :action CopyReference<CR>
+
+" Copy file path
+nnoremap <leader>cP :action CopyAbsolutePath<CR>
+
+" Recent projects
+nnoremap <leader>rp :action RecentProjectListGroup<CR>
+
+" Scratch files
+nnoremap <leader>ns :action NewScratchFile<CR>
+
+" ============================================================================
+" FINAL SETTINGS
+" ============================================================================
+
+" Make sure to reload the file after making changes
+" Use :source ~/.ideavimrc or restart IntelliJ
+
+" Enable relative line numbers in insert mode
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
