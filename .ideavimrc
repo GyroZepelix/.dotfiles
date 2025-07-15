@@ -100,7 +100,7 @@ nnoremap <leader>pa :action GotoAction<CR>
 " Navigation
 nnoremap K :action QuickJavaDoc<CR>
 nnoremap gd :action GotoDeclaration<CR>
-nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap gD :action TypeHierarchy<CR>
 nnoremap gi :action GotoImplementation<CR>
 nnoremap go :action GotoTypeDeclaration<CR>
 nnoremap gr :action FindUsages<CR>
@@ -147,10 +147,10 @@ nnoremap <leader>dc :action ActivateDebugToolWindow<CR>
 " ============================================================================
 
 " Git actions (emulating vim-fugitive and gitsigns)
-nnoremap <leader>gs :action ActivateVersionControlToolWindow<CR>
-nnoremap <leader>gc :action CheckinProject<CR>
-nnoremap <leader>gp :action Vcs.Push<CR>
-nnoremap <leader>gl :action Vcs.Show.Log<CR>
+nnoremap <leader>hs :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>hc :action CheckinProject<CR>
+nnoremap <leader>hp :action Vcs.Push<CR>
+nnoremap <leader>hl :action Vcs.Show.Log<CR>
 
 " Git hunks navigation
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
