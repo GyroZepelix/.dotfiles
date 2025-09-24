@@ -52,7 +52,7 @@ read -p "Set up Kanata (uinput, groups, udev, systemd)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Setting up Kanata..."
   echo -e "\n---/--- Applying 'uinput' and 'input' roles to $USER..."
-  sudo groupadd uinput
+  sudo groupadd --system uinput
   sudo usermod -aG uinput,input "$USER"
   echo -e "\n---/--- Adding udev rule for uinput..."
   echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/kanata.rules
