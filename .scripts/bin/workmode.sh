@@ -20,6 +20,7 @@ if [[ "$selected" == "WASTE" ]]; then
   hostess rm www.x.com
   hostess rm www.linkedin.com
   hostess rm www.instagram.com
+  hostess rm www.facebook.com
   echo Workmode set to WASTE
 else
   hostess add studio.youtube.com 127.0.0.1
@@ -29,5 +30,6 @@ else
   hostess add www.x.com 127.0.0.1
   hostess add www.linkedin.com 127.0.0.1
   hostess add www.instagram.com 127.0.0.1
+  hostess add www.facebook.com 127.0.0.1
   echo Workmode set to WORK
 fi
