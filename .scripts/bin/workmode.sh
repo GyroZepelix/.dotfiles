@@ -13,23 +13,23 @@ if [[ $sk_status -ne 0 || -z "$selected" ]]; then
 fi
 
 if [[ "$selected" == "WASTE" ]]; then
-  hostess rm studio.youtube.com
-  hostess rm www.youtube.com
-  hostess rm music.youtube.com
-  hostess rm www.reddit.com
-  hostess rm www.x.com
-  hostess rm www.linkedin.com
-  hostess rm www.instagram.com
-  hostess rm www.facebook.com
+  sudo hostess rm studio.youtube.com
+  sudo hostess rm www.youtube.com
+  sudo hostess rm music.youtube.com
+  sudo hostess rm www.reddit.com
+  sudo hostess rm www.x.com
+  sudo hostess rm www.linkedin.com
+  sudo hostess rm www.instagram.com
+  sudo hostess rm www.facebook.com
   echo Workmode set to WASTE
 else
-  hostess add studio.youtube.com 127.0.0.1
-  hostess add www.youtube.com 127.0.0.1
-  hostess add music.youtube.com 127.0.0.1
-  hostess add www.reddit.com 127.0.0.1
-  hostess add www.x.com 127.0.0.1
-  hostess add www.linkedin.com 127.0.0.1
-  hostess add www.instagram.com 127.0.0.1
-  hostess add www.facebook.com 127.0.0.1
+  sudo hostess add studio.youtube.com 127.0.0.1
+  sudo hostess add www.youtube.com 127.0.0.1
+  sudo hostess add music.youtube.com 127.0.0.1
+  sudo hostess add www.reddit.com 127.0.0.1
+  sudo hostess add www.x.com 127.0.0.1
+  sudo hostess add www.linkedin.com 127.0.0.1
+  sudo hostess add www.instagram.com 127.0.0.1
+  sudo hostess add www.facebook.com 127.0.0.1
   echo Workmode set to WORK
 fi
