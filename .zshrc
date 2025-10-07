@@ -33,8 +33,6 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.lmstudio/bin"
 export PATH="$PATH:$GOPATH/bin"
 
-
-
 # Export default path of obsidian
 # export OBSIDIAN_VAULT_PATH=...
 export OBSIDIAN="$HOME/Documents/obsidian"
