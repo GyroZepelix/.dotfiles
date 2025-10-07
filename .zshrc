@@ -24,13 +24,16 @@ source $SC/neovim_default_editor
 # Use neovim as manpage resolver
 export MANPAGER='nvim +Man!'
 
-# Bob (neovim version manager) export path
-export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+export GOPATH="$HOME/.go"
+mkdir -p $HOME/.go/bin
 
-# Export nix commands
-export PATH=$PATH:$HOME/.nix-profile/bin
+# set UNIQUE paths
+typeset -U PATH
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
+export PATH="$PATH:$GOPATH/bin"
 
-export PATH=$PATH:$HOME/.local/bin
+
 
 # Export default path of obsidian
 # export OBSIDIAN_VAULT_PATH=...
@@ -45,7 +48,3 @@ source /usr/share/nvm/init-nvm.sh
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.lmstudio/bin"
-
-export PATH="$PATH:$HOME/.go/bin"
