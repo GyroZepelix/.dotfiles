@@ -12,19 +12,19 @@ else
 fi
 
 # --- Install AUR packages ---
-read -p "Install AUR packages (task, timew, kanata-bin, etc)? [y/N] " resp
+read -p "Install AUR packages (kanata-bin, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Installing AUR packages..."
-  yay -S task timew kanata-bin
+  yay -S kanata-bin
 else
   echo "Skipping AUR packages."
 fi
 
 # --- Symlink dotfiles ---
-read -p "Symlink dotfiles with stow? [y/N] " resp
+read -p "Symlink default dotfiles with stow? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Symlinking everything..."
-  stow .
+  stow default
 else
   echo "Skipping symlinking."
 fi
@@ -69,6 +69,7 @@ fi
 
 read -p "Set up Taskwarrior sync? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
+  yay -S task timew
   echo -e "\n--- Setting up Taskwarrior sync"
   sudo cp install-scripts/systemd-services/task-sync.service /etc/systemd/user
   sudo cp install-scripts/systemd-services/task-sync.timer /etc/systemd/user

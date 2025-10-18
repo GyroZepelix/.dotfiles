@@ -16,10 +16,12 @@ SAVEHIST=1000
 
 SC="$HOME/.scripts/shell_config"
 
-source $SC/advanced_terminal
-source $SC/add_scripts_to_path
-source $SC/zsh_bindkey
-source $SC/neovim_default_editor
+for config_file in "$SC/"*.zsh; do
+  if [ -f "$config_file" ]; then
+    source "$config_file"
+  fi
+done
+unset config_file
 
 # Use neovim as manpage resolver
 export MANPAGER='nvim +Man!'
@@ -41,6 +43,11 @@ export OBSIDIAN="$HOME/Documents/obsidian"
 eval "$(starship init zsh)"
 
 source /usr/share/nvm/init-nvm.sh
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
+export PATH="$PATH:$HOME/.go/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

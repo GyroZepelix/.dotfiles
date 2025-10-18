@@ -1,0 +1,3 @@
+dunst & 
+dwmbar &
+exec dwm

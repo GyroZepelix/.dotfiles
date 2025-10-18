@@ -1,2 +1,2 @@
-.config/tmux/plugins
-.tmux
+default/.config/tmux/plugins
+default/.tmux
