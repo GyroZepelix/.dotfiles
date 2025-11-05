@@ -11,6 +11,12 @@ alias ga="git add"
 alias gc="git commit"
 alias gcm="git commit -m"
 
+# Docker compose aliases
+alias dc="docker compose"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dcl="docker compose logs"
+
 # Taskwarrior and timewarrior aliases
 alias t="task"
 alias tw="timew"
