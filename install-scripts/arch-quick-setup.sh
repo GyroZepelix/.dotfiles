@@ -6,7 +6,7 @@ cd ..
 read -p "Install base Arch packages (git, tmux, neovim, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Installing base arch packages..."
-  sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm rustup zsh ttf-jetbrains-mono-nerd
+  sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm zsh ttf-jetbrains-mono-nerd
 else
   echo "Skipping base Arch packages."
 fi
