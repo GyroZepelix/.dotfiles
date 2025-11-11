@@ -6,7 +6,7 @@ cd ..
 read -p "Install base Arch packages (git, tmux, neovim, etc)? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Installing base arch packages..."
-  sudo pacman -Sy git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm zsh ttf-jetbrains-mono-nerd
+  sudo pacman -Sy --noconfirm git tmux neovim kitty stow fzf bat zoxide eza yazi starship nvm zsh ttf-jetbrains-mono-nerd
 else
   echo "Skipping base Arch packages."
 fi
@@ -33,7 +33,7 @@ fi
 read -p "Install TPM for Tmux? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Installing TPM for Tmux..."
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 else
   echo "Skipping TPM installation."
 fi
