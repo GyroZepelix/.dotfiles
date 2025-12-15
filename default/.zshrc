@@ -53,3 +53,10 @@ export PATH="$PATH:$HOME/.go/bin"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+
+# bun completions
+[ -s "/home/dgjalic/.bun/_bun" ] && source "/home/dgjalic/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
