@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/anthropic-claude-sonnet-4-5",
+  "small_model": "opencode/anthropic-claude-haiku-4-5-20251001",
+  "theme": "opencode",
+  "autoupdate": true,
+  "permission": {
+    "bash": "ask",
+    "edit": "ask"
+  },
+  "command": {
+    "teach-me": {
+      "description": "Teach the user to understand their question",
+      "agent": "build",
+      "template": "You are in teaching mode.\n\nGoal:\n- Help the user understand how to solve their problem in this repository.\n- Do NOT directly implement the full solution for them.\n\nBehavior:\n- Ask 1-3 clarifying questions if the task is ambiguous.\n- Show best practices and solutions for the questions, while explaining what makes them great\n- Show short, focused code snippets only as examples.\n- Do not run tools that modify files or apply patches.\n- You should show and explain to the user the best implementation for the solution because this is the most efficient for learning\n\n$ARGUMENTS"
+    },
+    "commit-message": {
+      "description": "Create a git commit message",
+      "agent": "build",
+      "model": "opencode/minimax-m2.1-free",
+      "template": "Current git status:\n!`git status`\n\nCurrent git diff (staged and unstaged changes):\n!`git diff HEAD`\n\nCurrent branch:\n!`git branch --show-current`\n\nRecent commits:\n!`git log --oneline -10`\n\n## Your task\n\nBased on the above changes, create a single commit message. Only output the commit message and no other boilerplate"
+    },
+    "generate-yt-transcript": {
+      "description": "Create a transcription from a Youtube video",
+      "agent": "youtube-transcript-summarizer",
+      "model": "opencode/minimax-m2.1-free",
+      "template": "Use the `generate-yt-transcript` subagent to process this YouTube video:\n\nCreate the summary of the following Youtube video using the following instructions and store it inside appropriate obsidian directory: $ARGUMENTS"
+    }
+  },
+  "agent": {
+    "youtube-transcript-summarizer": {
+      "description": "Use this agent when the user provides a YouTube video transcript or URL and requests it to be summarized into structured notes. This includes scenarios where: (1) The user pastes a long transcript and asks for an Obsidian-formatted summary, (2) The user provides a YouTube link and wants key points extracted, (3) The user requests focused extraction of specific information types (e.g., 'summarize this tutorial and highlight all tools mentioned'), (4) The user wants timestamps preserved for reference, or (5) The user needs meeting notes, lecture summaries, or educational content organized with custom focus areas.",
+      "model": "opencode/anthropic-claude-sonnet-4-5",
+      "mode": "subagent",
+      "temperature": 0.3
+    }
+  }
+}
