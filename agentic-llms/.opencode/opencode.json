@@ -17,13 +17,11 @@
     "commit-message": {
       "description": "Create a git commit message",
       "agent": "build",
-      "model": "opencode/minimax-m2.1-free",
       "template": "Current git status:\n!`git status`\n\nCurrent git diff (staged and unstaged changes):\n!`git diff HEAD`\n\nCurrent branch:\n!`git branch --show-current`\n\nRecent commits:\n!`git log --oneline -10`\n\n## Your task\n\nBased on the above changes, create a single commit message. Only output the commit message and no other boilerplate"
     },
     "generate-yt-transcript": {
       "description": "Create a transcription from a Youtube video",
       "agent": "youtube-transcript-summarizer",
-      "model": "opencode/minimax-m2.1-free",
       "template": "Use the `generate-yt-transcript` subagent to process this YouTube video:\n\nCreate the summary of the following Youtube video using the following instructions and store it inside appropriate obsidian directory: $ARGUMENTS"
     }
   },
