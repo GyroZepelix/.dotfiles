@@ -24,4 +24,6 @@ alias n="nvim"
 # Other
 alias c="clear"
 
-eval "$(zoxide init zsh --cmd cd)"
+if [ -z "$DISABLE_ZOXIDE" ]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
