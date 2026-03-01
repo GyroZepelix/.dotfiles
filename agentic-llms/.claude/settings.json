@@ -2,11 +2,11 @@
   "env": {
     "DISABLE_ZOXIDE": "1"
   },
+  "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/scripts/statusline-command.sh"
   },
   "alwaysThinkingEnabled": true,
-  "includeCoAuthoredBy": false,
   "gitAttribution": false
 }
