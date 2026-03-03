@@ -42,6 +42,7 @@ TARGET_TOOL: "cross-compatible (Claude Code, OpenCode)"
 - Use cookbook entries for two patterns:
   - **Reusable instructions** — a sequence of actions referenced from multiple workflow steps (e.g. a user-confirmation gate, a standard validation pass)
   - **Conditional branches** — decision logic that would clutter the Workflow if inlined. Use the exact format:
+
     ```
     #### IF
     - <condition>
@@ -50,6 +51,7 @@ TARGET_TOOL: "cross-compatible (Claude Code, OpenCode)"
     #### ELSE
     - <action when false>
     ```
+
 - Cookbook entries must be self-contained — they must not reference other cookbook entries or create circular dependencies
 - Every cookbook entry must be referenced by at least one Workflow step. Unreferenced entries are dead code — remove them
 
