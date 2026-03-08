@@ -1,12 +1,28 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/anthropic-claude-sonnet-4-5",
-  "small_model": "opencode/anthropic-claude-haiku-4-5-20251001",
-  "theme": "opencode",
   "autoupdate": true,
   "permission": {
     "bash": "ask",
     "edit": "ask"
+  },
+  "provider": {
+    "llamacpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "ik_llama.cpp (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:14444/v1",
+        "apiKey": "dummy"
+      },
+      "models": {
+        "qwen3.5-35b-a3b": {
+          "name": "Qwen3.5-35B-A3B-Q6_K",
+          "limit": {
+            "context": 131072,
+            "output": 4096
+          }
+        }
+      }
+    }
   },
   "command": {
     "teach-me": {
@@ -25,12 +41,5 @@
       "template": "Use the `generate-yt-transcript` subagent to process this YouTube video:\n\nCreate the summary of the following Youtube video using the following instructions and store it inside appropriate obsidian directory: $ARGUMENTS"
     }
   },
-  "agent": {
-    "youtube-transcript-summarizer": {
-      "description": "Use this agent when the user provides a YouTube video transcript or URL and requests it to be summarized into structured notes. This includes scenarios where: (1) The user pastes a long transcript and asks for an Obsidian-formatted summary, (2) The user provides a YouTube link and wants key points extracted, (3) The user requests focused extraction of specific information types (e.g., 'summarize this tutorial and highlight all tools mentioned'), (4) The user wants timestamps preserved for reference, or (5) The user needs meeting notes, lecture summaries, or educational content organized with custom focus areas.",
-      "model": "opencode/anthropic-claude-sonnet-4-5",
-      "mode": "subagent",
-      "temperature": 0.3
-    }
-  }
+  "skills": {}
 }

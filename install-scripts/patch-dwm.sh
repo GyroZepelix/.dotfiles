@@ -20,7 +20,7 @@ fi
 read -p "Symlink dwm dotfiles with stow? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Symlinking everything..."
-  stow dwm-addons
+  stow 01-dwm-addons
 else
   echo "Skipping symlinking."
 fi

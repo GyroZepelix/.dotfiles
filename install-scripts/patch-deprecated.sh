@@ -10,7 +10,7 @@ fi
 read -p "Symlink deprecated dotfiles with stow? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Symlinking everything..."
-  stow deprecated
+  stow 03-deprecated
 else
   echo "Skipping symlinking."
 fi
