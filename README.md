@@ -41,10 +41,11 @@ Currently using **Catppuccin Mocha** theme across:
   - gitui for terminal-based git workflow
 
 ### Modular Architecture
-Three distinct modules managed via GNU Stow:
-1. **default** - Core configurations for daily use
-2. **dwm-addons** - Additional configs for DWM window manager
-3. **deprecated** - Legacy Taskwarrior/Timewarrior configs (optional)
+Four distinct modules managed via GNU Stow, prefixed with numbers to communicate load order:
+1. **00-default** - Core configurations for daily use
+2. **01-dwm-addons** - Additional configs for DWM window manager
+3. **02-agentic-llms** - Claude Code and OpenCode configurations
+4. **99-deprecated** - Legacy Taskwarrior/Timewarrior configs (optional)
 
 ## Requirements
 
@@ -85,7 +86,7 @@ sdkman (JVM tool management)
 ```
 
 ### Optional Dependencies
-For **dwm-addons** module:
+For **01-dwm-addons** module:
 ```
 dwm
 brightnessctl
@@ -94,7 +95,7 @@ xorg-xsetroot
 dwmbar-git (AUR)
 ```
 
-For **deprecated** module:
+For **99-deprecated** module:
 ```
 taskwarrior
 timewarrior
@@ -136,7 +137,7 @@ If you prefer manual installation:
 
 ```bash
 cd ~/.dotfiles
-stow default
+stow 00-default
 ```
 
 Install TPM manually:
@@ -211,7 +212,7 @@ The deprecated module includes:
 
 ```
 .dotfiles/
-├── default/              # Core configurations
+├── 00-default/           # Core configurations
 │   ├── .config/
 │   │   ├── tmux/         # Tmux config + TPM
 │   │   ├── kitty/        # Kitty terminal config
@@ -219,17 +220,21 @@ The deprecated module includes:
 │   │   ├── gitui/        # Git TUI config
 │   │   └── starship.toml # Shell prompt
 │   ├── .scripts/
-│   │   ├── shell_config/ # Modular ZSH configs
+│   │   ├── shell_config/ # Modular ZSH configs (see below)
 │   │   ├── bin/          # Custom utility scripts
 │   │   └── completion_zsh/ # Shell completions
 │   ├── .zshrc            # Main ZSH configuration
 │   └── .ideavimrc        # IdeaVim configuration
 │
-├── dwm-addons/           # DWM-specific configs
+├── 01-dwm-addons/        # DWM-specific configs
 │   ├── .xinitrc
 │   └── .config/dwmbar/
 │
-├── deprecated/           # Legacy task management
+├── 02-agentic-llms/      # Claude Code and OpenCode configs
+│   ├── .claude/
+│   └── .opencode/
+│
+├── 99-deprecated/        # Legacy task management
 │   ├── .config/task/
 │   ├── .config/timew/
 │   └── .local/bin/       # Sync scripts
@@ -244,12 +249,29 @@ The deprecated module includes:
 ## Configuration Highlights
 
 ### Modular Shell Configuration
-ZSH configuration is split into numbered modules in `~/.scripts/shell_config/`:
-- `01_add_scripts_to_path.zsh` - Adds custom scripts to PATH
-- `02-advanced_terminal.zsh` - Modern CLI tool aliases and integrations
-- `03-neovim_default_editor.zsh` - Sets neovim as default editor
-- `04-zsh_bindkey.zsh` - Advanced keybindings and history search
-- `10-dwm.zsh` - DWM-specific aliases (if installed)
+
+`.zshrc` is intentionally minimal — it only initialises the zsh completion system and then sources every `*.zsh` file found in `~/.scripts/shell_config/` in alphabetical order. All other configuration lives in that directory as numbered modules.
+
+**Rules for shell_config files:**
+- Filename format: `NN-description.zsh` (two-digit prefix, e.g. `05-history.zsh`)
+- The number controls load order — lower numbers load first
+- Each patch directory contributes its own files into `shell_config/` via stow; the prefix number should reflect which patch it belongs to (00–09 for `00-default`, 10–19 for `01-dwm-addons`, 20–29 for `02-agentic-llms`, etc.)
+- Reserve `99-*.zsh` for tool initialisations that must run last (e.g. sdkman requires this)
+- Do **not** put completion system setup, history config, or tool init hooks directly in `.zshrc` — use the appropriate numbered module instead
+
+**Current modules (contributed by each patch via stow):**
+
+| File | Patch | Purpose |
+|---|---|---|
+| `01_add_scripts_to_path.zsh` | `00-default` | Adds `~/.scripts/bin` to PATH |
+| `02-advanced_terminal.zsh` | `00-default` | CLI aliases (eza, git, docker, nvim) and zoxide |
+| `03-neovim_default_editor.zsh` | `00-default` | Sets `EDITOR`, `VISUAL`, `MANPAGER` |
+| `04-zsh_bindkey.zsh` | `00-default` | Vi mode and advanced key bindings |
+| `05-history.zsh` | `00-default` | History file, size, and save settings |
+| `06-env.zsh` | `00-default` | Environment variables and PATH additions |
+| `10-dwm.zsh` | `01-dwm-addons` | DWM-specific aliases (if installed) |
+| `20-agentic-llms.zsh` | `02-agentic-llms` | Agentic LLM tool aliases (e.g. `cdsp`) |
+| `99-tool-init.zsh` | `00-default` | Tool initialisations: starship, nvm, bun, sdkman |
 
 ### Tmux Features
 - Custom prefix: `Ctrl+s`
@@ -290,12 +312,12 @@ include ./themes/catppuccin-mocha.conf
 ```
 
 ### Adding Custom Shell Functions
-Create a new file in `~/.scripts/shell_config/` with a numbered prefix:
+Create a new numbered file in the appropriate patch's `shell_config/` directory and re-stow:
 ```bash
-echo 'alias myalias="command"' > ~/.scripts/shell_config/05-custom.zsh
+echo 'alias myalias="command"' > ~/.dotfiles/00-default/.scripts/shell_config/07-custom.zsh
 ```
 
-The file will be automatically sourced on next shell startup.
+The file will be symlinked into `~/.scripts/shell_config/` by stow and automatically sourced on next shell startup. Follow the numbering convention — use a prefix in the range that corresponds to the owning patch.
 
 ## Keyboard Shortcuts
 
