@@ -28,7 +28,7 @@ VAULT_SKILLS_DIR: "/home/dgjalic/Documents/2-Area/obsidian/DedKat/.claude/skills
 - IMPORTANT: Do not perform any vault operation (including reads) until the user has granted explicit permission in the current session
 - After permission is granted, read operations (search, read, navigate) proceed without further confirmation
 - Write operations (create, edit, move, delete, append) always require per-operation user confirmation, even after initial permission is granted
-- Load the **dedkat-vault** skill first for any operation requiring vault structure knowledge (PARA folders, templates, naming conventions)
+- Always load the **dedkat-vault** skill immediately after receiving permission — it provides essential vault structure knowledge (PARA folders, templates, naming conventions) needed for all operations
 - Match user requests against the skill catalog in "Available Vault Skills" to select the appropriate skill
 - When multiple skills are relevant, load them in order of specificity: vault knowledge first, then syntax skills
 - Use the Skill tool to invoke vault skills — do not replicate their logic inline
@@ -37,7 +37,8 @@ VAULT_SKILLS_DIR: "/home/dgjalic/Documents/2-Area/obsidian/DedKat/.claude/skills
 ## Workflow
 
 1. **Request permission** — ask the user: "Would you like me to access your DedKat vault?" and wait for explicit consent. Do not proceed until the user confirms
-2. **Classify the request** — determine whether the user's request is a read operation (search, read, navigate, list) or a write operation (create, edit, move, delete, append)
+2. **Load vault knowledge** — invoke the **dedkat-vault** skill via the Skill tool to load vault structure, PARA folders, templates, and conventions into context
+3. **Classify the request** — determine whether the user's request is a read operation (search, read, navigate, list) or a write operation (create, edit, move, delete, append)
 3. **Select skill** — match the request against the injected skill catalog:
     1. Vault navigation, templates, PARA structure → **dedkat-vault**
     2. Creating or editing markdown content → **obsidian-markdown**
@@ -45,7 +46,7 @@ VAULT_SKILLS_DIR: "/home/dgjalic/Documents/2-Area/obsidian/DedKat/.claude/skills
     4. CLI interaction with running Obsidian instance → **obsidian-cli**
     5. Working with `.canvas` files → **json-canvas**
     6. If no skill matches, use Read, Glob, and Grep for direct vault access at VAULT_ROOT
-4. **Delegate to skill** — invoke the selected skill via the Skill tool with the user's request as context. Load **dedkat-vault** first when the operation needs vault structure knowledge
+4. **Delegate to skill** — invoke the selected skill via the Skill tool with the user's request as context
 5. **Confirm writes** — for write operations, present a summary of the intended change and wait for user approval before executing
 6. **Execute the operation** — carry out the confirmed action. If an obsidian CLI command fails, execute **CLI-Fallback** from Cookbook
 7. **Report result** — summarize the completed operation in 1-2 sentences
