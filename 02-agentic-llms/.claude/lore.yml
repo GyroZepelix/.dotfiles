@@ -1,0 +1,5 @@
+provider: claude
+skills:
+  - source: ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git
+    ref: master
+    include: [brainstorm, obsidian-vault-gateway]
