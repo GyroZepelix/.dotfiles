@@ -2,4 +2,8 @@ provider: claude
 skills:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git
     ref: master
-    include: [brainstorm, obsidian-vault-gateway]
+    include:
+      - brainstorm
+      - obsidian-vault-gateway
+      - meta/deep-research-prompt-architect
+      - meta/prompt-architect
