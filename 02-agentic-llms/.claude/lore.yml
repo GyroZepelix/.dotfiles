@@ -5,5 +5,5 @@ skills:
     include:
       - brainstorm
       - obsidian-vault-gateway
-      - meta/deep-research-prompt-architect
-      - meta/prompt-architect
+      - meta/deep-research-prompt-architect:deep-research-prompt-architect
+      - meta/prompt-architect:prompt-architect
