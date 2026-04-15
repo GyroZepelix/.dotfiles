@@ -13,21 +13,26 @@ allowed-tools: Bash, Read, Write, Glob, Agent, Skill
 
 # Purpose
 
-Distills YouTube videos into structured, scannable Obsidian-optimized markdown notes. Extracts transcripts via yt-dlp, processes them in an isolated subagent to handle long-form content (up to 2 hours), and produces a summary with YAML frontmatter, thematic grouping, timestamps, and Obsidian callouts. After saving, enters follow-up Q&A mode for deeper exploration of the video content.
+Distills YouTube videos into structured, scannable Obsidian-optimized markdown notes. Extracts transcripts via yt-dlp with a resilient browser-cookie fallback for YouTube's bot-detection wall, processes transcripts in an isolated subagent to handle long-form content (up to 2 hours), and produces a summary with YAML frontmatter, thematic grouping, timestamps, and Obsidian callouts. After saving, enters follow-up Q&A mode for deeper exploration of the video content.
 
 ## Variables
 
 ARGS: $ARGUMENTS (required — YouTube URL followed by optional save flags)
 TEMP_DIR: "/tmp/yt-transcript"
+FILE_DATE: runtime — output of `date +%y%m%d` captured in step 3, used as filename prefix (e.g. `260415`)
+YTDLP_BASE: runtime — the working `yt-dlp` invocation prefix derived in step 4, reused verbatim for all subsequent yt-dlp calls in steps 5 and 6
 
 ## Instructions
 
 - IMPORTANT: Abort immediately if yt-dlp is not installed — do not attempt any alternative transcript extraction method
+- IMPORTANT: Never run more than one `yt-dlp` command against the same URL in parallel — YouTube rate-limits identical bot fingerprints and parallel calls trip the bot-detection wall even when sequential calls succeed. All yt-dlp invocations in this skill run strictly sequentially
+- IMPORTANT: A `"Sign in to confirm you're not a bot"` error is a COOKIE problem, never a player-client problem. Do not attempt to fix it with `--extractor-args player_client=...` or similar flags — the fix is always to supply working browser cookies via `--cookies-from-browser <browser>:<profile>`. Execute **Bot-Check-Recovery** from Cookbook instead of improvising
+- IMPORTANT: Once `YTDLP_BASE` is set in step 4, every subsequent yt-dlp call in this skill MUST reuse that exact prefix verbatim. Do not re-derive it, do not drop the `--cookies-from-browser` flag, do not swap profiles
 - Parse ARGS to extract: VIDEO_URL (first positional argument), SAVE_MODE (`--obsidian` or `--path <dir>` if present, otherwise unset)
 - Supported URL formats: `youtube.com/watch?v=`, `youtu.be/`, `m.youtube.com/watch?v=`, `youtube.com/shorts/`
 - Prefer manual captions over auto-generated; prefer English over other languages
 - All output must be in English regardless of the video's language
-- Auto-generate the output filename from the video title by removing characters unsafe for file systems and preserving spaces (e.g., `How React Server Components Work.md`)
+- Auto-generate the output filename as `{FILE_DATE}-<sanitized title>.md` where the sanitized title is the video title with filesystem-unsafe characters removed and spaces preserved (e.g. `260415-How React Server Components Work.md`)
 - Adaptive key point counts: 5–10 for videos under 30 minutes, 10–20 for videos 30 minutes to 2 hours
 - For videos over 30 minutes, group key points by theme/topic with section headings
 - For videos under 30 minutes, list key points sequentially without theme grouping
@@ -42,51 +47,88 @@ TEMP_DIR: "/tmp/yt-transcript"
 
 2. **Validate URL** — verify VIDEO_URL matches a supported YouTube URL pattern. If invalid, inform the user of accepted formats and stop
 
-3. **Check prerequisites** — run `which yt-dlp` via the Bash tool. If the command returns a non-zero exit code, output install instructions and stop:
+3. **Check prerequisites and capture date** — run the following via the Bash tool in a single sequential call, and store the outputs:
+    ```bash
+    which yt-dlp && date +%y%m%d
+    ```
+    If `which yt-dlp` returns a non-zero exit code, output the install instructions below and stop. Otherwise store the `date` output as `FILE_DATE`:
     > **yt-dlp is required but not installed.** Install it with:
     > - Arch Linux: `sudo pacman -S yt-dlp`
     > - pip: `pip install yt-dlp`
     > - Homebrew: `brew install yt-dlp`
 
-4. **Extract metadata** — run the following via the Bash tool and store the three output lines as VIDEO_TITLE, VIDEO_AUTHOR, and VIDEO_DURATION:
+4. **Derive working yt-dlp invocation** — execute **Bot-Check-Recovery**(url: VIDEO_URL) from Cookbook to determine the correct yt-dlp invocation prefix for this machine's environment. Store the result as `YTDLP_BASE`. From this point forward every yt-dlp call in this skill reuses `YTDLP_BASE` verbatim
+
+5. **Extract metadata** — run the following via the Bash tool (sequential — do not parallelize with step 6) and store the three output lines as VIDEO_TITLE, VIDEO_AUTHOR, and VIDEO_DURATION:
     ```bash
-    yt-dlp --print title --print channel --print duration_string --skip-download "VIDEO_URL"
+    YTDLP_BASE --print title --print channel --print duration_string --skip-download "VIDEO_URL"
     ```
 
-5. **Extract transcript** — run the following via the Bash tool:
+6. **Extract transcript** — run the following via the Bash tool (sequential — do not parallelize with step 5):
     ```bash
-    mkdir -p /tmp/yt-transcript && yt-dlp --skip-download --write-subs --write-auto-subs --sub-lang en --convert-subs srt -o "/tmp/yt-transcript/%(id)s.%(ext)s" "VIDEO_URL"
+    mkdir -p /tmp/yt-transcript && YTDLP_BASE --skip-download --write-subs --write-auto-subs --sub-lang en --convert-subs srt -o "/tmp/yt-transcript/%(id)s.%(ext)s" "VIDEO_URL"
     ```
     Use the Glob tool to find `*.srt` files in TEMP_DIR. If no `.srt` file exists, execute **No-Transcript-Gate** from Cookbook
 
-6. **Delegate to subagent** — use the Agent tool to spawn a `general-purpose` subagent with the following prompt:
-    1. Instruct the subagent to use the Read tool to load the `.srt` transcript file at the path found in step 5
+7. **Delegate to subagent** — use the Agent tool to spawn a `general-purpose` subagent with the following prompt:
+    1. Instruct the subagent to use the Read tool to load the `.srt` transcript file at the path found in step 6
     2. Provide the video metadata: VIDEO_TITLE, VIDEO_AUTHOR, VIDEO_DURATION, VIDEO_URL, and today's date as CREATED_DATE
     3. Include the complete **Output-Template** from the Cookbook as the target format
     4. Instruct the subagent to analyse the full transcript, identify the most important points, extract approximate timestamps, apply thematic categorization if VIDEO_DURATION exceeds 30 minutes, generate 3–5 topic strings for the frontmatter, and compose the completed markdown
     5. Instruct the subagent to return ONLY the finished markdown with no surrounding commentary
 
-7. **Present summary** — display the subagent's returned markdown to the user and ask: "Would you like any changes before saving?"
+8. **Present summary** — display the subagent's returned markdown to the user and ask: "Would you like any changes before saving?"
     1. If the user requests changes, apply them to the markdown and re-present
     2. Proceed to saving only after the user confirms
 
-8. **Save output** — execute **Save-Output**(markdown: GENERATED_MARKDOWN, title: VIDEO_TITLE) from Cookbook
+9. **Save output** — execute **Save-Output**(markdown: GENERATED_MARKDOWN, title: VIDEO_TITLE, date: FILE_DATE) from Cookbook
 
-9. **Clean up** — run `rm -rf /tmp/yt-transcript/` via the Bash tool
+10. **Clean up** — run `rm -rf /tmp/yt-transcript/` via the Bash tool
 
-10. **Enter Q&A mode** — output:
+11. **Enter Q&A mode** — output:
     > **Summary saved.** You can now ask follow-up questions about this video. I will reference the saved summary to answer. If you need deeper detail on a specific point, I can re-extract the original transcript.
 
     For each follow-up question, use the Read tool to load the saved summary file and answer from its content. If the user requests detail not present in the summary, re-run steps 5–6 targeting the specific topic the user asked about
 
 ## Cookbook
 
+### Bot-Check-Recovery(url)
+
+- Step A — attempt the cheapest invocation first. Run via the Bash tool:
+    ```bash
+    yt-dlp --print title --skip-download "url" 2>&1
+    ```
+  - If the command succeeds (exit code 0 and a title is printed), return `yt-dlp` as the working `YTDLP_BASE` and stop
+  - If the output contains `"Sign in to confirm you're not a bot"` or any `ERROR:` line, proceed to Step B
+- Step B — enumerate installed browsers that likely hold a YouTube session. Run via the Bash tool:
+    ```bash
+    ls -d ~/.config/BraveSoftware/Brave-Browser 2>/dev/null; \
+    ls -d ~/.config/google-chrome 2>/dev/null; \
+    ls -d ~/.config/chromium 2>/dev/null; \
+    ls -d ~/.mozilla/firefox 2>/dev/null
+    ```
+  - Build an ordered candidate list from the directories that exist, using this priority: `brave`, `chrome`, `chromium`, `firefox`
+  - If no browser directory exists, inform the user: "No local browser with cookie storage was found. Please log into YouTube in Brave, Chrome, Chromium, or Firefox and retry." and stop
+- Step C — for each candidate browser in order, determine the profile name:
+  - For `brave`: `ls ~/.config/BraveSoftware/Brave-Browser/` and pick `Default` if present, otherwise the first profile directory
+  - For `chrome`: `ls ~/.config/google-chrome/` and pick `Default` if present, otherwise the first profile directory
+  - For `chromium`: `ls ~/.config/chromium/` and pick `Default` if present, otherwise the first profile directory
+  - For `firefox`: `ls ~/.mozilla/firefox/` and pick the first directory ending in `.default-release`, otherwise the first directory ending in `.default`
+- Step D — for each candidate, test the invocation. Run via the Bash tool (one at a time, sequentially):
+    ```bash
+    yt-dlp --cookies-from-browser "<browser>:<profile>" --print title --skip-download "url" 2>&1
+    ```
+  - If the command succeeds and prints a title, return `yt-dlp --cookies-from-browser "<browser>:<profile>"` as the working `YTDLP_BASE` and stop
+  - If the command fails with the bot-check error, continue to the next candidate
+  - If the command fails with any other error (e.g. `Unsupported URL`, `Video unavailable`), report that error to the user and stop — do not continue trying other browsers
+- Step E — if all candidates fail the bot check, inform the user: "All installed browsers failed the YouTube bot check. Please log into YouTube in one of: brave, chrome, chromium, firefox — then retry. If you are already logged in, your cookies may have expired." and stop
+
 ### No-Transcript-Gate
 
 - Inform the user: "No transcript or captions found for this video."
 - Present two options:
   - **[A] Abort** — stop the skill entirely
-  - **[B] Attempt fallback** — extract the video description using `yt-dlp --print description --skip-download "VIDEO_URL"` via the Bash tool, then continue to step 6 using the description text as the source material instead of a transcript
+  - **[B] Attempt fallback** — extract the video description using `YTDLP_BASE --print description --skip-download "VIDEO_URL"` via the Bash tool, then continue to step 7 using the description text as the source material instead of a transcript
 - IMPORTANT: Do not proceed until the user explicitly chooses an option
 
 ### Output-Template
@@ -166,18 +208,19 @@ topic:
 - <Suggested search term or concept for deeper learning>
 ```
 
-### Save-Output(markdown, title)
+### Save-Output(markdown, title, date)
 
+- Compute the target filename as `{date}-{sanitized title}.md`, where the sanitized title replaces filesystem-unsafe characters (`/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`) with nothing and preserves spaces
 #### IF
 - SAVE_MODE is `--obsidian`
 #### THEN
-- Invoke the `obsidian-vault-gateway` skill via the Skill tool, passing the markdown content and requesting it be saved with the sanitized title as the filename
+- Invoke the `obsidian-vault-gateway` skill via the Skill tool, passing the markdown content and requesting it be saved with the computed filename (including the `{date}-` prefix)
 #### ELSE
 - #### IF
   - SAVE_MODE is `--path <dir>`
   #### THEN
   - Run `mkdir -p <dir>` via the Bash tool
-  - Write the markdown to `<dir>/<sanitized title>.md` using the Write tool
+  - Write the markdown to `<dir>/{date}-{sanitized title}.md` using the Write tool
   #### ELSE
   - Ask the user to choose:
     - **[O] Obsidian vault** — delegate to `obsidian-vault-gateway` via the Skill tool
@@ -187,4 +230,4 @@ topic:
 
 ## Report
 
-A successful execution produces an Obsidian-optimized markdown file containing: YAML frontmatter with title, author, source, created date, tags (`[video]`), and topic (3–5 strings); a TL;DR section; a core takeaway callout; timestamped key points grouped by theme (for videos over 30 minutes) or listed sequentially (for shorter videos); optional glossary; action items as checkboxes; and further exploration links. The file is saved to the user-chosen location and the skill enters Q&A mode. Failure conditions: proceeding without yt-dlp installed, skipping the no-transcript gate when no subtitles are found, writing directly to the Obsidian vault instead of delegating to obsidian-vault-gateway, producing a summary without timestamps, or exiting without offering Q&A mode.
+A successful execution produces an Obsidian-optimized markdown file named `YYMMDD-<sanitized title>.md` containing: YAML frontmatter with title, author, source, created date, tags (`[video]`), and topic (3–5 strings); a TL;DR section; a core takeaway callout; timestamped key points grouped by theme (for videos over 30 minutes) or listed sequentially (for shorter videos); optional glossary; action items as checkboxes; and further exploration links. The file is saved to the user-chosen location and the skill enters Q&A mode. Failure conditions: proceeding without yt-dlp installed, running yt-dlp calls in parallel against the same URL, attempting to fix a bot-check error with player-client flags instead of Bot-Check-Recovery, skipping the no-transcript gate when no subtitles are found, writing directly to the Obsidian vault instead of delegating to obsidian-vault-gateway, producing a summary without timestamps, omitting the `YYMMDD-` date prefix from the output filename, or exiting without offering Q&A mode.
