@@ -1,5 +1,5 @@
-eval "$(starship init zsh)"
-source /usr/share/nvm/init-nvm.sh
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+[ -s /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

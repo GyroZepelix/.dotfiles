@@ -13,4 +13,11 @@ if [[ $url == git@* ]]; then
   url="https://$url"
 fi
 
-xdg-open "$url" || echo "No remotes found"
+if command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$url"
+elif command -v open >/dev/null 2>&1; then
+  open "$url"
+else
+  echo "No supported opener found (xdg-open/open)"
+  exit 1
+fi

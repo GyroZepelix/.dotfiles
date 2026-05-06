@@ -2,7 +2,7 @@
 Description=Kanata Service
 
 [Service]
-ExecStart=/usr/bin/kanata -c %h/.config/kanata/kanata.kdb
+ExecStart=/usr/bin/kanata -c %h/.config/kanata/kanata.kbd
 Restart=no
 
 [Install]

@@ -1,6 +1,6 @@
 # ── Completion ────────────────────────────────────────────────
 fpath=($HOME/.scripts/completion_zsh $fpath)
-zstyle :compinstall filename '/home/dgjalic/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit
 
