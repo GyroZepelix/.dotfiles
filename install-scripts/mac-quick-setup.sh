@@ -87,6 +87,7 @@ fi
 # --- Install TPM for Tmux ---
 if ask "Install TPM for Tmux"; then
   echo -e "\n--- Installing TPM for Tmux..."
+  mkdir -p "$HOME/.config/tmux/plugins"
   if [[ -d "$HOME/.config/tmux/plugins/tpm" ]]; then
     echo "TPM already exists at ~/.config/tmux/plugins/tpm"
   else

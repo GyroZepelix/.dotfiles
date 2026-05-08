@@ -33,7 +33,12 @@ fi
 read -p "Install TPM for Tmux? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n--- Installing TPM for Tmux..."
-  git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+  mkdir -p "$HOME/.config/tmux/plugins"
+  if [[ -d "$HOME/.config/tmux/plugins/tpm" ]]; then
+    echo "TPM already exists at ~/.config/tmux/plugins/tpm"
+  else
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm"
+  fi
 else
   echo "Skipping TPM installation."
 fi

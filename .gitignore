@@ -1,2 +1,7 @@
-default/.config/tmux/plugins
+# Tmux plugins are installed locally by TPM; don't commit plugin checkouts.
+00-default/.config/tmux/plugins/
+
+# Legacy tmux plugin locations
+.tmux/plugins/
+default/.config/tmux/plugins/
 default/.tmux
