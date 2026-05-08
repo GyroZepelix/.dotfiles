@@ -1,0 +1,20 @@
+{
+    "from": "User",
+    "inherits": "Qidi Q1 Pro 0.4 nozzle",
+    "name": "Smurfette 0.4 v2",
+    "print_host": "192.168.88.120:10088",
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "printer_settings_id": "Smurfette 0.4 v2",
+    "retract_when_changing_layer": [
+        "0"
+    ],
+    "version": "2.3.1.10",
+    "wipe": [
+        "0"
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "activate_chamber_temp_control": [
+        "1"
+    ],
+    "chamber_temperature": [
+        "58"
+    ],
+    "filament_settings_id": [
+        "Sunlu ABS Black"
+    ],
+    "filament_start_gcode": [
+        ""
+    ],
+    "filament_vendor": [
+        "Sunlu"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "100"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "100"
+    ],
+    "inherits": "Qidi Generic ABS @Qidi Q1 Pro 0.4 nozzle",
+    "is_custom_defined": "0",
+    "name": "Sunlu ABS Black",
+    "version": "2.1.1.0"
+}

@@ -1,0 +1,27 @@
+{
+    "filament_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "filament_flow_ratio": [
+        "0.95"
+    ],
+    "filament_max_volumetric_speed": [
+        "20"
+    ],
+    "filament_retraction_length": [
+        "0.4"
+    ],
+    "filament_settings_id": [
+        "eSun PLA+"
+    ],
+    "filament_vendor": [
+        "eSun"
+    ],
+    "from": "User",
+    "inherits": "Qidi Generic PLA @Qidi Q1 Pro 0.4 nozzle",
+    "name": "eSun PLA+",
+    "nozzle_temperature": [
+        "215"
+    ],
+    "version": "2.1.0.0"
+}

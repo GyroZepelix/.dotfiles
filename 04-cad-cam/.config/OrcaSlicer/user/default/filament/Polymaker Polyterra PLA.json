@@ -1,0 +1,28 @@
+{
+    "additional_cooling_fan_speed": [
+        "80"
+    ],
+    "filament_flow_ratio": [
+        "0.95"
+    ],
+    "filament_max_volumetric_speed": [
+        "20"
+    ],
+    "filament_retraction_length": [
+        "0.4"
+    ],
+    "filament_settings_id": [
+        "Polymaker Polyterra PLA"
+    ],
+    "filament_vendor": [
+        "Polymaker"
+    ],
+    "from": "User",
+    "inherits": "Qidi Generic PLA @Qidi Q1 Pro 0.4 nozzle",
+    "is_custom_defined": "0",
+    "name": "Polymaker Polyterra PLA",
+    "nozzle_temperature": [
+        "215"
+    ],
+    "version": "2.1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+    "from": "User",
+    "inherits": "0.20mm Standard @Qidi Q1 Pro",
+    "is_custom_defined": "0",
+    "name": "0.20mm Standard",
+    "print_settings_id": "0.20mm Standard",
+    "sparse_infill_pattern": "adaptivecubic",
+    "support_on_build_plate_only": "1",
+    "support_style": "organic",
+    "version": "2.1.0.0"
+}
