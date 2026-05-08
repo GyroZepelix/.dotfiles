@@ -59,27 +59,27 @@ if [[ "$resp" =~ ^[Yy]$ ]]; then
   echo -e "\n---/--- Loading uinput on boot..."
   echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf
   echo -e "\n---/--- Installing Systemd for Kanata..."
-  sudo cp install-scripts/systemd-services/kanata-hidden.service /etc/systemd/user
+  sudo cp install-scripts/systemd-services/kanata.service /etc/systemd/user
   systemctl --user daemon-reload
-  systemctl --user enable kanata-hidden.service
+  systemctl --user enable kanata.service
   echo -e "\n---/--- Please reboot your system for Kanata to work properly!"
 else
   echo "Skipping Kanata setup."
 fi
 
-read -p "Set up Taskwarrior sync? [y/N] " resp
-if [[ "$resp" =~ ^[Yy]$ ]]; then
-  yay -S task timew
-  echo -e "\n--- Setting up Taskwarrior sync"
-  sudo cp install-scripts/systemd-services/task-sync.service /etc/systemd/user
-  sudo cp install-scripts/systemd-services/task-sync.timer /etc/systemd/user
-  systemctl --user daemon-reload
-  systemctl --user enable task-sync.service
-  systemctl --user enable task-sync.timer
-  systemctl --user start task-sync.service
-  systemctl --user start task-sync.timer
-  echo -e "\n--- Please setup your credentials for taskw sync in .taskrc!"
-  echo -e "\n--- ( For more information run 'man task-sync' )"
-else
-  echo "Skipping Timewarrior sync setup."
-fi
+# read -p "Set up Taskwarrior sync? [y/N] " resp
+# if [[ "$resp" =~ ^[Yy]$ ]]; then
+#   yay -S task timew
+#   echo -e "\n--- Setting up Taskwarrior sync"
+#   sudo cp install-scripts/systemd-services/task-sync.service /etc/systemd/user
+#   sudo cp install-scripts/systemd-services/task-sync.timer /etc/systemd/user
+#   systemctl --user daemon-reload
+#   systemctl --user enable task-sync.service
+#   systemctl --user enable task-sync.timer
+#   systemctl --user start task-sync.service
+#   systemctl --user start task-sync.timer
+#   echo -e "\n--- Please setup your credentials for taskw sync in .taskrc!"
+#   echo -e "\n--- ( For more information run 'man task-sync' )"
+# else
+#   echo "Skipping Timewarrior sync setup."
+# fi
