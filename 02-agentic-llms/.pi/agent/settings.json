@@ -1,0 +1,15 @@
+{
+  "lastChangelogVersion": "0.70.6",
+  "hideThinkingBlock": true,
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "xhigh",
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "enableInstallTelemetry": false,
+  "theme": "dark",
+  "packages": [
+    "npm:pi-codex-web-search"
+  ]
+}
