@@ -1,0 +1,21 @@
+# ── Font ─────────────────────────────────────────────────────
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+font-thicken = true
+font-feature = calt
+font-feature = liga
+
+# ── Theme ────────────────────────────────────────────────────
+theme = Catppuccin Mocha
+
+# ── Window ───────────────────────────────────────────────────
+# window-padding-x = 0
+# window-padding-y = 0
+background-opacity = 1
+
+# ── macOS ────────────────────────────────────────────────────
+macos-option-as-alt = true
+
+# ── Cursor ───────────────────────────────────────────────────
+# cursor-style = bar
+# cursor-style-blink = true
