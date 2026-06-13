@@ -3,7 +3,7 @@
   "hideThinkingBlock": true,
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "high",
   "packages": [
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-args",
