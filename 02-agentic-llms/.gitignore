@@ -1,7 +1,16 @@
 # Managed by loremaster
 .claude/skills/brainstorm
 .claude/skills/obsidian-vault-gateway
-.lore-manifest.yml
 .claude/skills/deep-research-prompt-architect
 .claude/skills/prompt-architect
 .claude/skills/advanced-web-research
+.claude/skills/plan
+.claude/skills/git-commit
+.pi/agent/skills/brainstorm
+.pi/agent/skills/obsidian-vault-gateway
+.pi/agent/skills/deep-research-prompt-architect
+.pi/agent/skills/prompt-architect
+.pi/agent/skills/advanced-web-research
+.pi/agent/skills/plan
+.pi/agent/skills/git-commit
+.lore-manifest.yml
