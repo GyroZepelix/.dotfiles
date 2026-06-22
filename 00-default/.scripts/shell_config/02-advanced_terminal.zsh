@@ -21,6 +21,9 @@ alias dcs="docker compose ps"
 # Neovim
 alias n="nvim"
 
+# Render image
+alias img="kitten icat"
+
 # Other
 alias c="clear"
 
