@@ -14,3 +14,14 @@
 .pi/agent/skills/plan
 .pi/agent/skills/git-commit
 .lore-manifest.yml
+.claude/skills/ssh-manager
+.claude/skills/libreoffice
+.pi/skills/brainstorm
+.pi/skills/obsidian-vault-gateway
+.pi/skills/deep-research-prompt-architect
+.pi/skills/prompt-architect
+.pi/skills/advanced-web-research
+.pi/skills/plan
+.pi/skills/git-commit
+.pi/skills/ssh-manager
+.pi/skills/libreoffice

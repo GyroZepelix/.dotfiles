@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.9",
+  "lastChangelogVersion": "0.80.2",
   "hideThinkingBlock": true,
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
@@ -9,7 +9,8 @@
     "npm:@juicesharp/rpiv-args",
     "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main",
     "npm:pi-chrome",
-    "npm:@tintinweb/pi-subagents"
+    "npm:@tintinweb/pi-subagents",
+    "npm:@gregjohnso/pi-imgview"
   ],
   "terminal": {
     "showTerminalProgress": true
