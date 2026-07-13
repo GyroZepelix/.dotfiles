@@ -1,0 +1,7 @@
+[user]
+	name = GyroZepelix
+	email = gamingskullgamer@gmail.com
+
+[include]
+  path = ~/.config/git/proxy-work.config
+
