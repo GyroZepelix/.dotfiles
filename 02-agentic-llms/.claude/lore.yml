@@ -14,3 +14,10 @@ skills:
       - git-commit
       - ssh-manager
       - libreoffice
+
+prompts:
+  - source: ssh://git@git.dgjalic.com:2222/dgjalic/repo-wiki-template.git
+    ref: master
+    include:
+      - prompts/install-llm-wiki.md:install-llm-wiki.md
+      - prompts/seed-llm-wiki.md:seed-llm-wiki.md
