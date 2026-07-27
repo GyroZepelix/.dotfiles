@@ -271,6 +271,7 @@ The deprecated module includes:
 | `06-env.zsh` | `00-default` | Environment variables and PATH additions |
 | `10-dwm.zsh` | `01-dwm-addons` | DWM-specific aliases (if installed) |
 | `20-agentic-llms.zsh` | `02-agentic-llms` | Agentic LLM tool aliases (e.g. `cdsp`) |
+| `21-pi-profiles.zsh` | `02-agentic-llms` | Pi prompt profile aliases (e.g. `piold`) |
 | `99-tool-init.zsh` | `00-default` | Tool initialisations: starship, nvm, bun, sdkman |
 
 ### Tmux Features

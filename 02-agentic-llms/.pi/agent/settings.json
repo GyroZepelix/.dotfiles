@@ -1,18 +1,18 @@
 {
-  "lastChangelogVersion": "0.81.1",
+  "lastChangelogVersion": "0.82.1",
   "hideThinkingBlock": false,
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@juicesharp/rpiv-btw",
-    "npm:@juicesharp/rpiv-args",
     "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main",
     "npm:pi-chrome",
     "npm:@tintinweb/pi-subagents",
     "npm:@gregjohnso/pi-imgview",
     "npm:pi-tmux-spinner",
-    "https://github.com/monotykamary/pi-double-esc@main"
+    "https://github.com/monotykamary/pi-double-esc@main",
+    "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
   ],
   "terminal": {
     "showTerminalProgress": true
