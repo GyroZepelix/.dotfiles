@@ -26,3 +26,5 @@
   blockers and any checks that remain unverified.
 - Keep final responses concise and include changed paths, validation performed,
   failures, and remaining uncertainty when relevant.
+- Do not use em or en dashes. Use hyphens, commas, parentheses, or separate
+  sentences instead.
