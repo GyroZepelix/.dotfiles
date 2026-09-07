@@ -1,18 +1,18 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.85.1",
   "hideThinkingBlock": false,
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@juicesharp/rpiv-btw",
     "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main",
     "npm:pi-chrome",
-    "npm:@tintinweb/pi-subagents",
     "npm:@gregjohnso/pi-imgview",
     "npm:pi-tmux-spinner",
     "https://github.com/monotykamary/pi-double-esc@main",
-    "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
+    "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat",
+    "git:git@github.com:GyroZepelix/pi-aware.git",
+    "npm:@vanillagreen/pi-agents-tmux",
+    "npm:@vanillagreen/pi-session-bridge"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -20,10 +20,10 @@
   "enableInstallTelemetry": false,
   "theme": "dark",
   "enabledModels": [
+    "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.5",
     "deepseek/deepseek-v4-pro",
     "deepseek/deepseek-v4-flash",
-    "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-terra"
   ]
 }
