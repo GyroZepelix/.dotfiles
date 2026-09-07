@@ -3,17 +3,21 @@ skills:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git
     ref: master
     include:
-      - brainstorm
-      - obsidian-vault-gateway
       - meta/deep-research-prompt-architect:deep-research-prompt-architect
       - meta/prompt-architect:prompt-architect
       - advanced-web-research
-      - plan
+      - quick-plan
+      - grill-with-docs
+      - to-spec
       - dream
       - prime
       - git-commit
       - ssh-manager
       - libreoffice
+  - source: https://github.com/mattpocock/skills.git
+    ref: main
+    include:
+      - skills/productivity/teach:teach
 
 prompts:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/repo-wiki-template.git
