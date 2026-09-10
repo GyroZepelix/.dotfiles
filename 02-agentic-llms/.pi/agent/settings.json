@@ -11,8 +11,19 @@
     "https://github.com/monotykamary/pi-double-esc@main",
     "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat",
     "git:git@github.com:GyroZepelix/pi-aware.git",
-    "npm:@vanillagreen/pi-agents-tmux",
-    "npm:@vanillagreen/pi-session-bridge"
+    {
+      "source": "git:git@github.com:GyroZepelix/pi-interactive-subagents.git",
+      "extensions": [
+        "+pi-extension/subagents/index.ts"
+      ]
+    },
+    {
+      "source": "npm:@tintinweb/pi-subagents",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    "npm:@offbynan/pi-cursor-provider"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -21,9 +32,7 @@
   "theme": "dark",
   "enabledModels": [
     "openai-codex/gpt-5.6-sol",
-    "openai-codex/gpt-5.5",
-    "deepseek/deepseek-v4-pro",
-    "deepseek/deepseek-v4-flash",
-    "openai-codex/gpt-5.6-terra"
+    "cursor/gemini-3.8-flash",
+    "cursor/cursor-grok-4.6-fast"
   ]
 }
