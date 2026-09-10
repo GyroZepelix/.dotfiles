@@ -9,6 +9,7 @@ skills:
       - quick-plan
       - grill-with-docs
       - to-spec
+      - implement
       - dream
       - prime
       - git-commit
@@ -25,3 +26,4 @@ prompts:
     include:
       - prompts/install-llm-wiki.md:install-llm-wiki.md
       - prompts/seed-llm-wiki.md:seed-llm-wiki.md
+      - prompts/update-llm-wiki.md:update-llm-wiki.md
