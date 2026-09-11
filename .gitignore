@@ -5,3 +5,5 @@
 .tmux/plugins/
 default/.config/tmux/plugins/
 default/.tmux
+/spec
+/wiki
