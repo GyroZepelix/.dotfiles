@@ -1,6 +1,6 @@
 ---
 name: flash-reviewer
-description: Fast in-depth read-only reviewer for evidence-backed code findings
+description: Fast in-depth read-only reviewer for evidence-backed code findings. For indepth reviews use worker agent
 model: cursor/gemini-3.8-flash
 thinking: high
 builtin-tools:
