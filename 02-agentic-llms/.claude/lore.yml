@@ -6,20 +6,18 @@ skills:
       - meta/deep-research-prompt-architect:deep-research-prompt-architect
       - meta/prompt-architect:prompt-architect
       - advanced-web-research
+      - teach
+      - prime
       - quick-plan
       - grill-with-docs
       - supersede
       - to-spec
       - implement
       - dream
-      - prime
+      - gamemaster-implement
       - git-commit
       - ssh-manager
       - libreoffice
-  - source: https://github.com/mattpocock/skills.git
-    ref: main
-    include:
-      - skills/productivity/teach:teach
 
 prompts:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/repo-wiki-template.git
