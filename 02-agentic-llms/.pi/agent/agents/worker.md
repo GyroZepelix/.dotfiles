@@ -21,6 +21,9 @@ extensions:
   - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
     paths:
       - index.ts
+  - package: "npm:@crazygit/pi-codex-image-gen"
+    paths:
+      - index.ts
 subagent_agents:
   - scout
   - researcher
