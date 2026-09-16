@@ -22,7 +22,7 @@ channel="pi-editor-$$-$RANDOM"
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 script="$script_dir/$(basename -- "${BASH_SOURCE[0]}")"
 
-tmux split-window -v -l 40% \
+tmux split-window -v -l 25% \
   "$script" --child "$channel" "$file"
 
 tmux wait-for "$channel"
