@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "${1:-}" == "--child" ]]; then
+  channel="${2:?Missing tmux wait channel}"
+  file="${3:?Missing file}"
+
+  trap 'tmux wait-for -S "$channel"' EXIT
+  nvim "$file"
+  exit
+fi
+
+file="${1:?Missing file}"
+
+# Use Neovim directly when Pi is not running inside tmux.
+if [[ -z "${TMUX:-}" ]]; then
+  exec nvim "$file"
+fi
+
+channel="pi-editor-$$-$RANDOM"
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+script="$script_dir/$(basename -- "${BASH_SOURCE[0]}")"
+
+tmux split-window -v -l 40% \
+  "$script" --child "$channel" "$file"
+
+tmux wait-for "$channel"

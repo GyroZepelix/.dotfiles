@@ -30,6 +30,7 @@
   },
   "enableInstallTelemetry": false,
   "theme": "dark",
+  "externalEditor": "pi-tmux-editor",
   "enabledModels": [
     "openai-codex/gpt-5.6-sol",
     "cursor/gemini-3.8-flash",
