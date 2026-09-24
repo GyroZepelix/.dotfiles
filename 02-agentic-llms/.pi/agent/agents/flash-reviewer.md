@@ -9,7 +9,7 @@ builtin-tools:
   - find
   - ls
 extensions:
-  - package: "npm:@offbynan/pi-cursor-provider"
+  - package: "git:github.com/GyroZepelix/pi-cursor-provider"
     paths:
       - index.ts
 session-mode: standalone

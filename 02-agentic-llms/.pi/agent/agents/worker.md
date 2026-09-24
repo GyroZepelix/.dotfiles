@@ -12,7 +12,7 @@ builtin-tools:
   - find
   - ls
 extensions:
-  - package: "npm:@offbynan/pi-cursor-provider"
+  - package: "git:github.com/GyroZepelix/pi-cursor-provider"
     paths:
       - index.ts
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"
