@@ -1,7 +1,7 @@
 ---
 name: worker
 description: Autonomous coding worker for bounded implementation and verification tasks
-model: cursor/cursor-grok-4.6-fast
+model: cursor/cursor-grok-4.7-fast
 thinking: high
 builtin-tools:
   - read
