@@ -1,29 +1,18 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.87.1",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
-    "npm:@juicesharp/rpiv-btw",
     "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main",
     "npm:pi-chrome",
-    "npm:@gregjohnso/pi-imgview",
-    "npm:pi-tmux-spinner",
     "https://github.com/monotykamary/pi-double-esc@main",
     "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat",
     "git:git@github.com:GyroZepelix/pi-aware.git",
-    {
-      "source": "git:git@github.com:GyroZepelix/pi-interactive-subagents.git",
-      "extensions": [
-        "+pi-extension/subagents/index.ts"
-      ]
-    },
-    {
-      "source": "npm:@tintinweb/pi-subagents",
-      "extensions": [
-        "-src/index.ts"
-      ]
-    },
-    "npm:@offbynan/pi-cursor-provider"
+    "git:git@github.com:GyroZepelix/pi-interactive-subagents.git",
+    "git:ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git",
+    "npm:@crazygit/pi-codex-image-gen",
+    "git:github.com/GyroZepelix/pi-web-annotator",
+    "git:github.com/GyroZepelix/pi-cursor-provider"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -35,5 +24,9 @@
     "openai-codex/gpt-5.6-sol",
     "cursor/gemini-3.8-flash",
     "cursor/cursor-grok-4.6-fast"
-  ]
+  ],
+  "skills": [
+    "-skills/cua-driver/SKILL.md"
+  ],
+  "defaultProvider": "openai-codex"
 }
