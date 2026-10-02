@@ -5,3 +5,6 @@
 [include]
   path = ~/.config/git/proxy-work.config
 
+[diff]
+  tool = nvimdiff
+
