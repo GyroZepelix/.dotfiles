@@ -1,14 +1,20 @@
 ---
 name: scout
 description: Fast read-only codebase reconnaissance with exact paths and evidence
-cli: agy
-model: gemini-3.8-flash
+model: cursor/grok-4.7-fast
 thinking: medium
 builtin-tools:
   - read
   - grep
   - find
   - ls
+extensions:
+  - package: "git:github.com/GyroZepelix/pi-cursor-provider"
+    paths:
+      - index.ts
+session-mode: standalone
+system-prompt: append
+auto-exit: true
 ---
 
 You are a read-only codebase scout. Investigate the requested area quickly and return a standalone, evidence-based report.

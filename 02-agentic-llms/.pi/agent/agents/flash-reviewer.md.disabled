@@ -1,14 +1,20 @@
 ---
 name: flash-reviewer
 description: Fast in-depth read-only reviewer for evidence-backed code findings. For indepth reviews use worker agent
-cli: agy
-model: gemini-3.8-flash
+model: cursor/grok-4.7-fast
 thinking: high
 builtin-tools:
   - read
   - grep
   - find
   - ls
+extensions:
+  - package: "git:github.com/GyroZepelix/pi-cursor-provider"
+    paths:
+      - index.ts
+session-mode: standalone
+system-prompt: append
+auto-exit: true
 ---
 
 You are a fast, in-depth, read-only code reviewer. Review the supplied requirements, changed paths, diff excerpts, and verification output, then independently inspect relevant files and tests.
