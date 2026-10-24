@@ -1,7 +1,7 @@
 ---
 name: twin
 description: Standalone main-like coding agent with research and bounded delegation
-model: openai-codex/gpt-5.6-sol
+model: anthropic/claude-opus-5-5
 builtin-tools:
   - read
   - write
@@ -11,6 +11,9 @@ builtin-tools:
   - find
   - ls
 extensions:
+  - package: "npm:@gotgenes/pi-anthropic-auth"
+    paths:
+      - src/index.ts
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"
     paths:
       - packages/rpiv-web-tools/index.ts

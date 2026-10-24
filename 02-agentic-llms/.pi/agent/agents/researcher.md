@@ -1,9 +1,12 @@
 ---
 name: researcher
 description: Source-backed web researcher for current technical and general questions
-model: openai-codex/gpt-5.6-sol
+model: anthropic/claude-opus-5-5
 builtin-tools: []
 extensions:
+  - package: "npm:@gotgenes/pi-anthropic-auth"
+    paths:
+      - src/index.ts
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"
     paths:
       - packages/rpiv-web-tools/index.ts
