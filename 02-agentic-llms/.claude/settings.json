@@ -3,6 +3,7 @@
     "DISABLE_ZOXIDE": "1"
   },
   "includeCoAuthoredBy": false,
+  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/scripts/statusline-command.sh"
@@ -13,6 +14,5 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
-  "gitAttribution": false,
-  "model": "opus"
+  "gitAttribution": false
 }
