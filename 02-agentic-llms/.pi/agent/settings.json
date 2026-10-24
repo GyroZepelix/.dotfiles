@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.1.0",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
@@ -11,7 +11,9 @@
     "git:ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git",
     "npm:@crazygit/pi-codex-image-gen",
     "git:github.com/GyroZepelix/pi-web-annotator",
-    "git:github.com/GyroZepelix/pi-cursor-provider"
+    "git:github.com/GyroZepelix/pi-cursor-provider",
+    "npm:pi-inline-viz",
+    "npm:@gotgenes/pi-anthropic-auth"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -20,13 +22,16 @@
   "theme": "dark",
   "externalEditor": "pi-tmux-editor",
   "enabledModels": [
+    "anthropic/claude-opus-5-5",
+    "anthropic/claude-fable-5-1",
+    "anthropic/claude-sonnet-5-5",
     "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-sol-1m",
     "cursor/gemini-3.8-flash",
     "cursor/grok-4.7-fast"
   ],
   "skills": [
-    "-skills/cua-driver/SKILL.md"
+    "+skills/cua-driver/SKILL.md"
   ],
   "defaultProvider": "openai-codex",
   "tuiMode": "regular",
@@ -36,5 +41,9 @@
         "reserveTokens": 128000
       }
     }
+  },
+  "deviceId": "5cf029ab-cf20-4e29-8f4c-6c4cd4da48ae",
+  "warnings": {
+    "anthropicExtraUsage": false
   }
 }
