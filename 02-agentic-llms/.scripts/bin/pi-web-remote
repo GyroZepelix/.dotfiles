@@ -1,0 +1,188 @@
+#!/usr/bin/env bash
+
+# Serve pi-web on demand to the tailnet: pi-web binds to loopback only and
+# `tailscale serve` (never funnel) proxies HTTPS on port 8443 to it.
+
+set -euo pipefail
+
+port=30141
+https_port=8443
+keychain_service="pi-web"
+keychain_account="pi"
+state_dir="$HOME/.local/state/pi-web-remote"
+log_file="$state_dir/pi-web.log"
+
+die() {
+  echo "pi-web-remote: $*" >&2
+  exit 1
+}
+
+usage() {
+  cat <<EOF
+Usage: $(basename -- "$0") <command>
+
+Commands:
+  start   Start pi-web on 127.0.0.1:$port and serve it to the tailnet on :$https_port
+  stop    Remove the :$https_port serve handler and stop pi-web
+  status  Show pi-web, serve handler, and URL state
+EOF
+}
+
+find_tailscale() {
+  if command -v tailscale >/dev/null 2>&1; then
+    tailscale_bin="$(command -v tailscale)"
+  elif [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then
+    tailscale_bin=/Applications/Tailscale.app/Contents/MacOS/Tailscale
+  else
+    die "Tailscale CLI not found."
+  fi
+
+  local status_json
+  status_json="$("$tailscale_bin" status --json 2>/dev/null)" ||
+    die "Tailscale is not running."
+  [[ "$(jq -r '.BackendState' <<<"$status_json")" == "Running" ]] ||
+    die "Tailscale is not running."
+
+  dns_name="$(jq -r '.Self.DNSName // empty' <<<"$status_json")"
+  dns_name="${dns_name%.}"
+  [[ -n "$dns_name" ]] || die "Could not determine the MagicDNS name."
+  url="https://$dns_name:$https_port"
+}
+
+serve_handler_exists() {
+  "$tailscale_bin" serve status --json 2>/dev/null |
+    jq -e --arg port "$https_port" '.TCP[$port] != null' >/dev/null 2>&1
+}
+
+pi_web_listening() {
+  lsof -nP -iTCP:"$port" -sTCP:LISTEN -t >/dev/null 2>&1
+}
+
+require_pi_web() {
+  command -v pi-web >/dev/null 2>&1 ||
+    die "pi-web is not installed (npm install -g @agegr/pi-web)."
+}
+
+read_password() {
+  security find-generic-password -s "$keychain_service" -a "$keychain_account" -w 2>/dev/null
+}
+
+ensure_password() {
+  if password="$(read_password)" && [[ -n "$password" ]]; then
+    return
+  fi
+
+  password="$(openssl rand -base64 32)"
+  # Feed the command on stdin so the password never appears in argv.
+  printf 'add-generic-password -s %s -a %s -w %s\n' \
+    "$keychain_service" "$keychain_account" "$password" | security -i >/dev/null ||
+    die "Could not store the password in Keychain."
+  password="$(read_password)" || die "Could not read back the Keychain password."
+
+  echo "Stored a new pi-web password in Keychain. Retrieve it with:"
+  echo "  security find-generic-password -s $keychain_service -a $keychain_account -w"
+}
+
+login_page_answers() {
+  local code
+  code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 2 \
+    "http://127.0.0.1:$port/login" 2>/dev/null)" || true
+  [[ "$code" != "000" && -n "$code" ]]
+}
+
+password_protected() {
+  # A password-protected pi-web redirects page requests to /login.
+  local location
+  location="$(curl -s -o /dev/null -w '%{redirect_url}' --max-time 5 \
+    "http://127.0.0.1:$port/" 2>/dev/null)" || true
+  [[ "$location" == */login* ]]
+}
+
+launch_pi_web() {
+  mkdir -p "$state_dir"
+  echo "Starting pi-web on 127.0.0.1:$port (log: $log_file)"
+
+  # Job control gives the server its own process group, so closing this
+  # terminal does not hang it up. The password is passed only via environment.
+  cd "$HOME"
+  set -m
+  PI_WEB_PASSWORD="$password" PI_WEB_ALLOWED_HOSTS="$dns_name" \
+    nohup caffeinate -i pi-web --port "$port" --hostname 127.0.0.1 --no-open \
+    >>"$log_file" 2>&1 </dev/null &
+  set +m
+
+  local waited=0
+  until login_page_answers; do
+    if ((waited >= 60)); then
+      tail -n 20 "$log_file" >&2 || true
+      die "pi-web did not answer on 127.0.0.1:$port within 60s."
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
+}
+
+cmd_start() {
+  require_pi_web
+  find_tailscale
+  ensure_password
+
+  if pi_web_listening; then
+    echo "pi-web is already listening on 127.0.0.1:$port"
+    password_protected ||
+      die "The server on 127.0.0.1:$port is not password-protected; not exposing it. Stop it first."
+  else
+    launch_pi_web
+  fi
+
+  "$tailscale_bin" serve --bg --https="$https_port" "http://127.0.0.1:$port" >/dev/null ||
+    die "tailscale serve failed."
+
+  echo "pi-web is available on the tailnet at:"
+  echo "  $url"
+}
+
+cmd_stop() {
+  find_tailscale
+
+  if serve_handler_exists; then
+    "$tailscale_bin" serve --https="$https_port" off >/dev/null
+    echo "Removed the :$https_port serve handler."
+  else
+    echo "No :$https_port serve handler."
+  fi
+
+  if pi_web_listening; then
+    require_pi_web
+    pi-web stop --port "$port"
+  else
+    echo "pi-web is not listening on 127.0.0.1:$port."
+  fi
+}
+
+cmd_status() {
+  find_tailscale
+
+  if command -v pi-web >/dev/null 2>&1; then
+    pi-web status
+  else
+    echo "pi-web is not installed."
+  fi
+
+  if serve_handler_exists; then
+    echo "Serve handler :$https_port: on"
+  else
+    echo "Serve handler :$https_port: off"
+  fi
+  echo "URL: $url"
+}
+
+case "${1:-}" in
+  start) cmd_start ;;
+  stop) cmd_stop ;;
+  status) cmd_status ;;
+  *)
+    usage >&2
+    exit 1
+    ;;
+esac
