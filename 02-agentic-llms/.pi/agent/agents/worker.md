@@ -11,6 +11,8 @@ builtin-tools:
   - grep
   - find
   - ls
+mcp-servers:
+  - context7
 extensions:
   - package: "git:github.com/GyroZepelix/pi-cursor-provider"
     paths:

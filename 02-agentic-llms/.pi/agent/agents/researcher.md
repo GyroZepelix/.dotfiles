@@ -3,6 +3,8 @@ name: researcher
 description: Source-backed web researcher for current technical and general questions
 model: anthropic/claude-opus-5-5
 builtin-tools: []
+mcp-servers:
+  - context7
 extensions:
   - package: "npm:@gotgenes/pi-anthropic-auth"
     paths:

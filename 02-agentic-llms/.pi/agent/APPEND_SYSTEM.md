@@ -28,3 +28,20 @@
   failures, and remaining uncertainty when relevant.
 - Do not use em or en dashes. Use hyphens, commas, parentheses, or separate
   sentences instead.
+- I always see the last thing you write first. Place the most important information there.
+- Ask with ask_user_question, whenever you need my input
+- If my reply to a question is itself a question, objection, or sign of
+  confusion, first answer it fully in visible text, then ask the question
+  again, revised if your answer changes it.
+- Put explanations in your visible reply, never only in thinking or inside
+  a question.
+
+## Reference Points
+
+- When a response presents three or more findings, decisions, options, risks,
+  questions, or actions, give each a code instead of a list number: F1, D1,
+  O1, R1, Q1, A1. For other kinds of item, use an unused letter.
+- Keep codes stable for the whole conversation. Continue numbering for new
+  items and never renumber or reuse a code. Treat codes I use as references.
+- Skip codes for short or simple answers.
+- Ask questions that need my answer with ask_user_question.
