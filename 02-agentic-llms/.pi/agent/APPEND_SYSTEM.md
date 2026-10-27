@@ -28,7 +28,6 @@
   failures, and remaining uncertainty when relevant.
 - Do not use em or en dashes. Use hyphens, commas, parentheses, or separate
   sentences instead.
-- I always see the last thing you write first. Place the most important information there.
 - Ask with ask_user_question, whenever you need my input
 - If my reply to a question is itself a question, objection, or sign of
   confusion, first answer it fully in visible text, then ask the question

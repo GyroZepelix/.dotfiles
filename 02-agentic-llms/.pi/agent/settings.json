@@ -13,7 +13,9 @@
     "git:github.com/GyroZepelix/pi-web-annotator",
     "git:github.com/GyroZepelix/pi-cursor-provider",
     "npm:pi-inline-viz",
-    "npm:@gotgenes/pi-anthropic-auth"
+    "npm:@gotgenes/pi-anthropic-auth",
+    "git:git@github.com:GyroZepelix/pi-ez-session-name.git",
+    "git:git@github.com:GyroZepelix/pi-visible-claude-narration.git"
   ],
   "terminal": {
     "showTerminalProgress": true
