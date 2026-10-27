@@ -36,7 +36,7 @@
     "+skills/cua-driver/SKILL.md"
   ],
   "defaultProvider": "openai-codex",
-  "tuiMode": "regular",
+  "tuiMode": "fullscreen",
   "compaction": {
     "modelOverrides": {
       "openai-codex/gpt-5.6-sol-1m": {
