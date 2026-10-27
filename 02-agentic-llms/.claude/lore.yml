@@ -19,7 +19,7 @@ skills:
       - git-commit
       - ssh-manager
       - libreoffice
-      - technical-confidence-review
+      - explain-change
 
 prompts:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/repo-wiki-template.git
