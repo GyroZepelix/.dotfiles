@@ -20,6 +20,10 @@ skills:
       - ssh-manager
       - libreoffice
       - explain-change
+  - source: ssh://git@git.dgjalic.com:2222/dgjalic/audio-processing-noting-pipeline.git
+    ref: master
+    include:
+      - skills/meeting-transcribe:meeting-transcribe
 
 prompts:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/repo-wiki-template.git

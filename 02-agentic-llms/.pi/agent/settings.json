@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.4.0",
+  "lastChangelogVersion": "1.5.0",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
@@ -15,7 +15,8 @@
     "npm:pi-inline-viz",
     "npm:@gotgenes/pi-anthropic-auth",
     "git:git@github.com:GyroZepelix/pi-ez-session-name.git",
-    "git:git@github.com:GyroZepelix/pi-visible-claude-narration.git"
+    "git:git@github.com:GyroZepelix/pi-visible-claude-narration.git",
+    "git:git@github.com:GyroZepelix/pi-interactive-widgets"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -47,5 +48,9 @@
   "deviceId": "5cf029ab-cf20-4e29-8f4c-6c4cd4da48ae",
   "warnings": {
     "anthropicExtraUsage": false
+  },
+  "extensionChangelogVersions": {
+    "{\"source\":\"git:github.com/GyroZepelix/pi-cursor-provider\",\"scope\":\"user\"}": "0.7.0",
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4"
   }
 }
