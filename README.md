@@ -131,6 +131,24 @@ The script will:
 - Change default shell to ZSH
 - Optionally set up Taskwarrior sync
 
+### Termux (Android)
+
+On a fresh Termux install, clone the repository as above (install `git` first with `pkg install git`), then run:
+
+```bash
+cd ~/.dotfiles/install-scripts
+chmod +x termux-quick-setup.sh
+./termux-quick-setup.sh
+```
+
+Each step is prompted and can be skipped:
+- Install base packages with `pkg`
+- Symlink `00-default` and `05-termux` with GNU Stow, then reload Termux settings
+- Optionally symlink `02-agentic-llms`
+- Clone the Neovim config into `~/.config/nvim` when it is missing
+- Install TPM (Tmux Plugin Manager)
+- Change default shell to ZSH (`chsh -s zsh`)
+
 ### Manual Installation
 
 If you prefer manual installation:
