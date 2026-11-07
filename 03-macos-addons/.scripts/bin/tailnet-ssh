@@ -1,0 +1,254 @@
+#!/usr/bin/env bash
+
+# Tailnet-only, key-only SSH for macOS (and therefore mosh, which bootstraps
+# over SSH and binds its UDP port to the address the SSH login came in on).
+#
+# macOS Remote Login has launchd listen on *:22 on every interface and
+# advertise it over Bonjour; sshd's ListenAddress is ignored there. So Remote
+# Login stays OFF and a dedicated LaunchDaemon runs a standalone sshd bound
+# only to this Mac's Tailscale IPv4. With net.inet.ip.check_interface=1, macOS
+# only accepts packets for that address on the Tailscale interface, so port 22
+# is closed on Wi-Fi, Ethernet and loopback. KeepAlive retries the bind until
+# Tailscale is up (the Standalone app only connects after login).
+#
+# Defence in depth: the sshd drop-in is key-only and AllowUsers only admits
+# this user from Tailscale address ranges.
+
+set -euo pipefail
+
+conf=/etc/ssh/sshd_config.d/000-local.conf
+label=local.tailnet-sshd
+plist=/Library/LaunchDaemons/$label.plist
+user="$(id -un)"
+auth_keys="$HOME/.ssh/authorized_keys"
+login_shell=/opt/homebrew/bin/zsh
+tailnet_v4="100.64.0.0/10"
+tailnet_v6="fd7a:115c:a1e0::/48"
+
+die() {
+  echo "tailnet-ssh: $*" >&2
+  exit 1
+}
+
+usage() {
+  cat <<EOF
+Usage: $(basename -- "$0") <command>
+
+Commands:
+  status            Show Tailscale IP, sshd daemon, listeners, drop-in, keys, PATH
+  add-key [FILE|-]  Append an SSH public key to $auth_keys (default: stdin)
+  apply             Install the key-only drop-in and a tailnet-only sshd daemon;
+                    turns macOS Remote Login (all interfaces) off
+  restart           Restart the tailnet sshd daemon (e.g. after a Tailscale reconnect)
+  revert            Remove the daemon and drop-in (SSH fully off)
+EOF
+}
+
+find_tailscale() {
+  if command -v tailscale >/dev/null 2>&1; then
+    tailscale_bin="$(command -v tailscale)"
+  elif [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then
+    tailscale_bin=/Applications/Tailscale.app/Contents/MacOS/Tailscale
+  else
+    die "Tailscale CLI not found."
+  fi
+  ts_ip="$("$tailscale_bin" ip -4 2>/dev/null | head -n1)" || true
+  [[ -n "${ts_ip:-}" ]] || die "Tailscale is not running (no tailnet IPv4)."
+}
+
+desired_conf() {
+  cat <<EOF
+# Managed by ~/.dotfiles/03-macos-addons/.scripts/bin/tailnet-ssh
+# Key-only logins for $user, accepted only from Tailscale addresses.
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PermitRootLogin no
+AllowUsers $user@$tailnet_v4 $user@$tailnet_v6
+EOF
+}
+
+desired_plist() {
+  cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Managed by ~/.dotfiles/03-macos-addons/.scripts/bin/tailnet-ssh -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>$label</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/sbin/sshd</string>
+		<string>-D</string>
+		<string>-o</string>
+		<string>ListenAddress=$ts_ip</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ThrottleInterval</key>
+	<integer>30</integer>
+</dict>
+</plist>
+EOF
+}
+
+remote_login_enabled() {
+  launchctl print system/com.openssh.sshd >/dev/null 2>&1
+}
+
+daemon_loaded() {
+  launchctl print "system/$label" >/dev/null 2>&1
+}
+
+port22_listeners() {
+  netstat -anp tcp 2>/dev/null | awk '$NF == "LISTEN" && $4 ~ /[.:]22$/ {print $4}' |
+    sort -u | paste -sd ' ' -
+}
+
+key_count() {
+  [[ -f "$auth_keys" ]] || { echo 0; return; }
+  grep -Ec '^(ssh-|ecdsa-|sk-)' "$auth_keys" || true
+}
+
+# What sshd runs for `ssh host cmd` (and so for mosh): a non-login,
+# non-interactive login shell, which reads only ~/.zshenv.
+ssh_cmd_env() {
+  env -i HOME="$HOME" USER="$user" SHELL="$login_shell" \
+    PATH=/usr/bin:/bin:/usr/sbin:/sbin "$login_shell" -c "$1" 2>/dev/null
+}
+
+cmd_status() {
+  find_tailscale
+  echo "Tailscale IPv4:   $ts_ip"
+  remote_login_enabled && echo "Remote Login:     ON (listens on all interfaces; run apply)" ||
+    echo "Remote Login:     off"
+  daemon_loaded && echo "Tailnet sshd:     loaded ($label)" ||
+    echo "Tailnet sshd:     not loaded"
+  echo "Port 22 listens:  $(port22_listeners | grep . || echo none)"
+  echo "Authorized keys:  $(key_count) in $auth_keys"
+  if [[ -f "$conf" ]]; then
+    diff -q <(desired_conf) "$conf" >/dev/null 2>&1 &&
+      echo "sshd drop-in:     $conf (up to date)" ||
+      echo "sshd drop-in:     $conf (differs from desired)"
+  else
+    echo "sshd drop-in:     missing ($conf)"
+  fi
+  echo "mosh-server:      $(ssh_cmd_env 'command -v mosh-server' ||
+    echo 'not on PATH for non-interactive SSH (fix ~/.zshenv)')"
+  echo "SSH locale:       $(ssh_cmd_env 'echo ${LC_CTYPE:-${LANG:-unset}}')"
+}
+
+cmd_add_key() {
+  local src="${1:--}" key tmp
+  if [[ "$src" == "-" ]]; then
+    key="$(cat)"
+  else
+    [[ -f "$src" ]] || die "No such file: $src"
+    key="$(cat -- "$src")"
+  fi
+  key="$(printf '%s\n' "$key" | grep -E '^(ssh-|ecdsa-|sk-)' | head -n1 || true)"
+  [[ -n "$key" ]] || die "No SSH public key found in input."
+
+  tmp="$(mktemp)"
+  trap 'rm -f "$tmp"' RETURN
+  printf '%s\n' "$key" >"$tmp"
+  ssh-keygen -l -f "$tmp" >/dev/null 2>&1 || die "Not a valid SSH public key."
+
+  install -d -m 700 "$HOME/.ssh"
+  touch "$auth_keys"
+  chmod 600 "$auth_keys"
+  if grep -qxF -- "$key" "$auth_keys"; then
+    echo "Key already present: $(ssh-keygen -l -f "$tmp")"
+    return
+  fi
+  printf '%s\n' "$key" >>"$auth_keys"
+  echo "Added: $(ssh-keygen -l -f "$tmp")"
+}
+
+install_file() { # tmpfile dest mode
+  local backup=""
+  if [[ -f "$2" ]] && ! diff -q "$1" "$2" >/dev/null 2>&1; then
+    backup="$2.bak.$(date +%Y%m%d%H%M%S)"
+    sudo cp -p "$2" "$backup"
+    echo "Backed up $2 to $backup"
+  fi
+  sudo install -m "$3" -o root -g wheel "$1" "$2"
+  last_backup="$backup"
+}
+
+cmd_apply() {
+  [[ "$(id -u)" -ne 0 ]] || die "Run as your user, not root; it calls sudo itself."
+  find_tailscale
+  [[ "$(key_count)" -gt 0 ]] ||
+    echo "Note: $auth_keys has no keys yet, so nobody can log in until you run add-key."
+
+  local dir
+  dir="$(mktemp -d)"
+  trap 'rm -rf "$dir"' RETURN
+  desired_conf >"$dir/conf"
+  desired_plist >"$dir/plist"
+  plutil -lint "$dir/plist" >/dev/null || die "Generated plist is invalid."
+
+  # Host keys are normally created on first Remote Login; sshd needs them.
+  compgen -G '/etc/ssh/ssh_host_*_key' >/dev/null || sudo ssh-keygen -A
+
+  install_file "$dir/conf" "$conf" 644
+  if ! sudo /usr/sbin/sshd -t; then
+    if [[ -n "$last_backup" ]]; then sudo mv "$last_backup" "$conf"; else sudo rm -f "$conf"; fi
+    die "sshd -t rejected the config; rolled back."
+  fi
+  echo "Installed $conf"
+
+  if remote_login_enabled; then
+    sudo systemsetup -f -setremotelogin off >/dev/null 2>&1 ||
+      sudo launchctl bootout system/com.openssh.sshd 2>/dev/null || true
+    remote_login_enabled &&
+      die "Remote Login is still on. Turn it off in System Settings > General > Sharing, then re-run apply."
+    echo "Remote Login (all interfaces) turned off."
+  fi
+
+  daemon_loaded && sudo launchctl bootout "system/$label" 2>/dev/null || true
+  install_file "$dir/plist" "$plist" 644
+  sudo launchctl bootstrap system "$plist"
+  echo "Loaded $plist (sshd on $ts_ip:22 only)"
+
+  sleep 1
+  echo "Effective settings for a tailnet connection:"
+  sudo /usr/sbin/sshd -T -C "user=$user,host=lunar,addr=$ts_ip,laddr=$ts_ip,lport=22" \
+    -o "ListenAddress=$ts_ip" |
+    grep -E '^(listenaddress|allowusers|passwordauthentication|kbdinteractiveauthentication|permitrootlogin) ' |
+    sed 's/^/  /'
+  echo "Port 22 listens:  $(port22_listeners | grep . || echo 'none yet (check: sudo launchctl print system/'"$label"')')"
+  echo
+  echo "Test from the phone over Tailscale:  ssh $user@$ts_ip echo ok"
+}
+
+cmd_restart() {
+  daemon_loaded || die "$label is not loaded; run apply."
+  sudo launchctl kickstart -k "system/$label"
+  sleep 1
+  echo "Port 22 listens:  $(port22_listeners | grep . || echo none)"
+}
+
+cmd_revert() {
+  if daemon_loaded; then
+    sudo launchctl bootout "system/$label" || true
+    echo "Stopped $label"
+  fi
+  [[ -f "$plist" ]] && sudo rm -f "$plist" && echo "Removed $plist"
+  [[ -f "$conf" ]] && sudo rm -f "$conf" && echo "Removed $conf"
+  echo "Port 22 listens:  $(port22_listeners | grep . || echo none)"
+}
+
+last_backup=""
+case "${1:-}" in
+  status) cmd_status ;;
+  add-key) shift; cmd_add_key "${1:--}" ;;
+  apply) cmd_apply ;;
+  restart) cmd_restart ;;
+  revert) cmd_revert ;;
+  -h | --help | "") usage ;;
+  *) usage >&2; exit 2 ;;
+esac

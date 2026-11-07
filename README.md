@@ -290,6 +290,8 @@ The deprecated module includes:
 | `10-dwm.zsh` | `01-dwm-addons` | DWM-specific aliases (if installed) |
 | `20-agentic-llms.zsh` | `02-agentic-llms` | Agentic LLM tool aliases (e.g. `cdsp`) |
 | `21-pi-profiles.zsh` | `02-agentic-llms` | Pi prompt profile aliases (e.g. `piold`) |
+| `30-homebrew.zsh` | `03-macos-addons` | Homebrew environment and zsh completions (macOS) |
+| `31-android-sdk.zsh` | `03-macos-addons` | `ANDROID_HOME` and PATH for the Homebrew Android SDK (macOS) |
 | `99-tool-init.zsh` | `00-default` | Tool initialisations: starship, nvm, bun, sdkman |
 
 ### Tmux Features
