@@ -1,0 +1,4 @@
+# Global gitignore (read automatically via $XDG_CONFIG_HOME/git/ignore)
+
+# macOS Finder metadata
+.DS_Store
