@@ -1,4 +1,4 @@
-provider: [claude, pi]
+provider: [pi]
 skills:
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git
     ref: master
@@ -20,6 +20,7 @@ skills:
       - ssh-manager
       - libreoffice
       - explain-change
+      - places
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/audio-processing-noting-pipeline.git
     ref: master
     include:
