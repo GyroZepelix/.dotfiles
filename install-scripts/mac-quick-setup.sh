@@ -58,6 +58,7 @@ fi
 # --- Symlink default dotfiles ---
 if ask "Symlink default dotfiles with stow"; then
   echo -e "\n--- Symlinking 00-default..."
+  mkdir -p "$HOME/.config"
   stow 00-default
 else
   echo "Skipping default dotfiles symlinking."
@@ -66,6 +67,7 @@ fi
 # --- Symlink macOS-specific dotfiles ---
 if ask "Symlink macOS-specific dotfiles with stow"; then
   echo -e "\n--- Symlinking 03-macos-addons..."
+  mkdir -p "$HOME/.config"
   stow 03-macos-addons
 else
   echo "Skipping macOS-specific dotfiles symlinking."
