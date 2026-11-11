@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.5.0",
+  "lastChangelogVersion": "1.5.2",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
@@ -34,7 +34,7 @@
     "cursor/grok-4.7-fast"
   ],
   "skills": [
-    "+skills/cua-driver/SKILL.md"
+    "-skills/cua-driver/SKILL.md"
   ],
   "defaultProvider": "openai-codex",
   "tuiMode": "fullscreen",

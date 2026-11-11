@@ -21,6 +21,7 @@ skills:
       - libreoffice
       - explain-change
       - places
+      - computer-use
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/audio-processing-noting-pipeline.git
     ref: master
     include:
