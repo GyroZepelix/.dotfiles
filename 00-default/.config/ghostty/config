@@ -16,6 +16,10 @@ background-opacity = 1
 # ── macOS ────────────────────────────────────────────────────
 macos-option-as-alt = true
 
+# ── Progress bar ─────────────────────────────────────────────
+# Ignore OSC 9;4 progress bars (e.g. Pi's busy indicator via tmux 3.8)
+progress-style = false
+
 # ── Cursor ───────────────────────────────────────────────────
 # cursor-style = bar
 # cursor-style-blink = true
