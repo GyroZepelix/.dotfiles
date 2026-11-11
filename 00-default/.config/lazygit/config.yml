@@ -1,0 +1,9 @@
+# LazyGit config (also used by Neovim's <leader>gg via snacks.nvim)
+# Docs: https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_DiffRenderers.md
+git:
+  diffRenderers:
+    # delta: word-level change highlighting + syntax colors.
+    # Shared delta settings live in ~/.config/git/config [delta].
+    # --hyperlinks: click a file name or @@ header to open it in the editor
+    # (no line numbers on purpose, to save horizontal space).
+    - command: delta --dark --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"

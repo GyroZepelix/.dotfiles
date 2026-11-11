@@ -16,10 +16,10 @@ if [[ -z "${TERMUX_VERSION:-}" && "${PREFIX:-}" != *com.termux* ]]; then
 fi
 
 # --- Install base Termux packages ---
-if ask "Install base Termux packages with pkg (git, tmux, neovim, stow, fzf, bat, zoxide, eza, yazi, starship, zsh, lazygit, gitui, ripgrep, fd, nodejs)"; then
+if ask "Install base Termux packages with pkg (git, tmux, neovim, stow, fzf, bat, zoxide, eza, yazi, starship, zsh, lazygit, git-delta, gitui, ripgrep, fd, nodejs)"; then
   echo -e "\n--- Installing base Termux packages..."
   pkg update
-  pkg install -y git tmux neovim stow fzf bat zoxide eza yazi starship zsh lazygit gitui ripgrep fd nodejs
+  pkg install -y git tmux neovim stow fzf bat zoxide eza yazi starship zsh lazygit git-delta gitui ripgrep fd nodejs
 else
   echo "Skipping base Termux packages."
 fi

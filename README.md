@@ -19,6 +19,8 @@ A modular dotfiles repository for Arch Linux systems, featuring a modern tmux + 
 - **fzf** - Fuzzy finder for files and command history
 - **yay** - AUR helper for Arch Linux
 - **gitui** - Terminal UI for git with vim keybindings
+- **lazygit** - Terminal UI for git (also used by Neovim's `<leader>gg`)
+- **delta** - Diff pager with word-level change highlighting, used by git and lazygit
 
 ### Theme
 Currently using **Catppuccin Mocha** theme across:
@@ -38,7 +40,8 @@ Currently using **Catppuccin Mocha** theme across:
 
 - **Git Integration:**
   - Open current repo in browser with `open-github.sh`
-  - gitui for terminal-based git workflow
+  - gitui and lazygit for terminal-based git workflow
+  - delta as git pager and lazygit diff renderer (highlights the changed words, not just whole lines)
 
 ### Modular Architecture
 Four distinct modules managed via GNU Stow, prefixed with numbers to communicate load order:
@@ -72,6 +75,8 @@ eza
 yay
 starship
 gitui
+lazygit
+git-delta
 ```
 
 **Productivity:**
@@ -235,7 +240,9 @@ The deprecated module includes:
 │   │   ├── tmux/         # Tmux config + TPM
 │   │   ├── kitty/        # Kitty terminal config
 │   │   ├── kanata/       # Keyboard remapping
+│   │   ├── git/          # Git config (delta pager)
 │   │   ├── gitui/        # Git TUI config
+│   │   ├── lazygit/      # Lazygit config (delta diffs)
 │   │   └── starship.toml # Shell prompt
 │   ├── .scripts/
 │   │   ├── shell_config/ # Modular ZSH configs (see below)

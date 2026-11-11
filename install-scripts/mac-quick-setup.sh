@@ -37,10 +37,10 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 # --- Install base macOS packages ---
-if command -v brew >/dev/null 2>&1 && ask "Install base macOS packages with Homebrew (git, tmux, neovim, kitty, stow, fzf, bat, zoxide, eza, starship, zsh)"; then
+if command -v brew >/dev/null 2>&1 && ask "Install base macOS packages with Homebrew (git, tmux, neovim, kitty, stow, fzf, bat, zoxide, eza, starship, zsh, lazygit, git-delta)"; then
   echo -e "\n--- Installing base macOS packages..."
   brew update
-  brew install git tmux neovim stow fzf bat zoxide eza starship zsh
+  brew install git tmux neovim stow fzf bat zoxide eza starship zsh lazygit git-delta
   brew install --cask kitty font-jetbrains-mono-nerd-font
 else
   echo "Skipping base macOS packages."

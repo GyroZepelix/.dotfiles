@@ -8,3 +8,14 @@
 [diff]
   tool = nvimdiff
 
+# delta: word-level diff highlighting for git CLI output
+# (--navigate is CLI-only, it does not work inside lazygit)
+[core]
+  pager = delta --navigate
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  dark = true
+
