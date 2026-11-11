@@ -299,6 +299,7 @@ The deprecated module includes:
 | `21-pi-profiles.zsh` | `02-agentic-llms` | Pi prompt profile aliases (e.g. `piold`) |
 | `30-homebrew.zsh` | `03-macos-addons` | Homebrew environment and zsh completions (macOS) |
 | `31-android-sdk.zsh` | `03-macos-addons` | `ANDROID_HOME` and PATH for the Homebrew Android SDK (macOS) |
+| `32-tailscale.zsh` | `03-macos-addons` | `tailscale` alias to the macOS app's bundled CLI (macOS) |
 | `99-tool-init.zsh` | `00-default` | Tool initialisations: starship, nvm, bun, sdkman |
 
 ### Tmux Features
