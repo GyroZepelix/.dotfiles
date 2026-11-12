@@ -11,12 +11,12 @@
     "git:ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git",
     "npm:@crazygit/pi-codex-image-gen",
     "git:github.com/GyroZepelix/pi-web-annotator",
-    "git:github.com/GyroZepelix/pi-cursor-provider",
     "npm:pi-inline-viz",
     "npm:@gotgenes/pi-anthropic-auth",
     "git:git@github.com:GyroZepelix/pi-ez-session-name.git",
     "git:git@github.com:GyroZepelix/pi-visible-claude-narration.git",
-    "git:git@github.com:GyroZepelix/pi-interactive-widgets"
+    "git:git@github.com:GyroZepelix/pi-interactive-widgets",
+    "npm:@rahularya01/pi-cursor"
   ],
   "terminal": {
     "showTerminalProgress": true
@@ -51,6 +51,7 @@
   },
   "extensionChangelogVersions": {
     "{\"source\":\"git:github.com/GyroZepelix/pi-cursor-provider\",\"scope\":\"user\"}": "0.7.0",
-    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4"
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4",
+    "{\"source\":\"npm:@rahularya01/pi-cursor\",\"scope\":\"user\"}": "1.4.39"
   }
 }

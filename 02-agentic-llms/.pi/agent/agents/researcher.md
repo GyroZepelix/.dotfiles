@@ -15,7 +15,6 @@ extensions:
   - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
     paths:
       - index.ts
-session-mode: standalone
 system-prompt: append
 auto-exit: true
 ---

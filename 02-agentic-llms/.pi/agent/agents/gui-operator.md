@@ -11,7 +11,6 @@ extensions:
   - package: "npm:@gotgenes/pi-anthropic-auth"
     paths:
       - src/index.ts
-session-mode: standalone
 system-prompt: append
 auto-exit: true
 ---
