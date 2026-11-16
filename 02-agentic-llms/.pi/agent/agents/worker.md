@@ -14,7 +14,7 @@ builtin-tools:
 mcp-servers:
   - context7
 extensions:
-  - package: "npm:@rahularya01/pi-cursor"
+  - package: "git:git@github.com:GyroZepelix/pi-cursor.git"
     paths:
       - dist/index.js
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"

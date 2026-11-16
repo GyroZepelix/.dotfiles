@@ -10,7 +10,7 @@ builtin-tools:
   - ls
   - codemode
 extensions:
-  - package: "npm:@rahularya01/pi-cursor"
+  - package: "git:git@github.com:GyroZepelix/pi-cursor.git"
     paths:
       - dist/index.js
 system-prompt: append
