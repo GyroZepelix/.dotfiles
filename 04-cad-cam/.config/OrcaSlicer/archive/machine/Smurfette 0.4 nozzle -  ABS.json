@@ -16,7 +16,6 @@
         "0.28"
     ],
     "name": "Smurfette 0.4 nozzle -  ABS",
-    "print_host": "192.168.88.120:10088",
     "printer_extruder_id": [
         "1"
     ],

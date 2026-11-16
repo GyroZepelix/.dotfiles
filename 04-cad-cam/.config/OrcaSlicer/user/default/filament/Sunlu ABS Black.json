@@ -5,11 +5,14 @@
     "chamber_temperature": [
         "58"
     ],
+    "filament_end_gcode": [
+        "; Restore the saved Z offset so PRINT_END or idle timeout does not persist the ABS/ASA offset\nset_zoffset\n"
+    ],
     "filament_settings_id": [
         "Sunlu ABS Black"
     ],
     "filament_start_gcode": [
-        ""
+        "; ABS/ASA first-layer Z offset: nozzle 0.013 mm further from the bed (tested; hot nozzle and bed)\nSET_GCODE_OFFSET Z=0.013 MOVE=0\n"
     ],
     "filament_vendor": [
         "Sunlu"

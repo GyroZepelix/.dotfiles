@@ -20,6 +20,9 @@
     "filament_density": [
         "1.07"
     ],
+    "filament_end_gcode": [
+        "; Restore the saved Z offset so PRINT_END or idle timeout does not persist the ABS/ASA offset\nset_zoffset\n"
+    ],
     "filament_max_volumetric_speed": [
         "17"
     ],
@@ -28,6 +31,9 @@
     ],
     "filament_shrink": [
         "99.63%"
+    ],
+    "filament_start_gcode": [
+        "; ABS/ASA first-layer Z offset: nozzle 0.013 mm further from the bed (tested; hot nozzle and bed)\nSET_GCODE_OFFSET Z=0.013 MOVE=0\n"
     ],
     "filament_type": [
         "ASA"
