@@ -1,42 +1,48 @@
 {
-    "compatible_printers": [
-        "Qidi Q1 Pro 0.4 nozzle"
-    ],
-    "fan_min_speed": [
-        "50"
-    ],
-    "filament_cost": [
-        "20"
-    ],
-    "filament_extruder_variant": [
-        "Direct Drive Standard"
-    ],
-    "filament_max_volumetric_speed": [
-        "20"
-    ],
-    "filament_settings_id": [
-        "eSUN ePETG-HF"
-    ],
-    "filament_z_hop": [
-        "0"
-    ],
-    "from": "User",
-    "hot_plate_temp": [
-        "75"
-    ],
-    "hot_plate_temp_initial_layer": [
-        "75"
-    ],
-    "inherits": "eSUN PETG @System",
-    "name": "eSUN ePETG-HF",
-    "nozzle_temperature": [
-        "250"
-    ],
-    "nozzle_temperature_initial_layer": [
-        "250"
-    ],
-    "nozzle_temperature_range_high": [
-        "260"
-    ],
-    "version": "2.3.2.60"
+	"additional_cooling_fan_speed": [
+		"20"
+	],
+	"compatible_printers": [
+		"Qidi Q1 Pro 0.4 nozzle"
+	],
+	"enable_pressure_advance": [
+		"1"
+	],
+	"fan_min_speed": [
+		"50"
+	],
+	"filament_cost": [
+		"20"
+	],
+	"filament_extruder_variant": [
+		"Direct Drive Standard"
+	],
+	"filament_max_volumetric_speed": [
+		"25"
+	],
+	"filament_settings_id": [
+		"eSUN ePETG-HF"
+	],
+	"filament_z_hop": [
+		"0"
+	],
+	"from": "User",
+	"inherits": "eSUN PETG @System",
+	"name": "eSUN ePETG-HF",
+	"nozzle_temperature": [
+		"250"
+	],
+	"nozzle_temperature_initial_layer": [
+		"250"
+	],
+	"nozzle_temperature_range_high": [
+		"260"
+	],
+	"pressure_advance": [
+		"0.046"
+	],
+	"slow_down_layer_time": [
+		"5"
+	],
+	"version": "2.3.2.60"
 }

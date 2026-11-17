@@ -1,19 +1,20 @@
 {
-    "from": "User",
-    "inherits": "Qidi Q1 Pro 0.4 nozzle",
-    "name": "Smurfette 0.4 v2",
-    "printer_extruder_id": [
-        "1"
-    ],
-    "printer_extruder_variant": [
-        "Direct Drive Standard"
-    ],
-    "printer_settings_id": "Smurfette 0.4 v2",
-    "retract_when_changing_layer": [
-        "0"
-    ],
-    "version": "2.3.1.10",
-    "wipe": [
-        "0"
-    ]
+	"from": "User",
+	"inherits": "Qidi Q1 Pro 0.4 nozzle",
+	"name": "Smurfette 0.4 v2",
+	"print_host": "http://smurfette.home.dgjalic.com/",
+	"printer_extruder_id": [
+		"1"
+	],
+	"printer_extruder_variant": [
+		"Direct Drive Standard"
+	],
+	"printer_settings_id": "Smurfette 0.4 v2",
+	"retract_when_changing_layer": [
+		"0"
+	],
+	"version": "2.3.1.10",
+	"wipe": [
+		"0"
+	]
 }
