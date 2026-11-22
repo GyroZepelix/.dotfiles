@@ -1,15 +1,8 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
-export GOPATH="$HOME/.go"
-mkdir -p "$GOPATH/bin"
-export OBSIDIAN="$HOME/Documents/obsidian"
-export BUN_INSTALL="$HOME/.bun"
-
+# Plain exports and PATH additions live in ~/.scripts/env.d/*.sh, loaded by
+# ~/.scripts/env.sh (also sourced from ~/.zshenv). Load it again here so login
+# shells restore the dotfiles PATH order after path_helper and ~/.zprofile.
 typeset -U PATH
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.lmstudio/bin"
-export PATH="$PATH:$GOPATH/bin"
+if [[ -r "$HOME/.scripts/env.sh" ]]; then
+  emulate sh -c '. "$HOME/.scripts/env.sh"'
+fi
+[[ -n "$GOPATH" ]] && mkdir -p "$GOPATH/bin"

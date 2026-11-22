@@ -24,6 +24,7 @@
   "enableInstallTelemetry": false,
   "theme": "dark",
   "externalEditor": "pi-tmux-editor",
+  "shellCommandPrefix": ". ~/.scripts/env.sh",
   "enabledModels": [
     "anthropic/claude-opus-5-5",
     "anthropic/claude-fable-5-1",

@@ -277,6 +277,23 @@ The deprecated module includes:
 
 `.zshrc` is intentionally minimal — it only initialises the zsh completion system and then sources every `*.zsh` file found in `~/.scripts/shell_config/` in alphabetical order. All other configuration lives in that directory as numbered modules.
 
+Plain environment variables and PATH additions do not live in `shell_config/`. They live in POSIX `~/.scripts/env.d/NN-description.sh` drop-ins, loaded in name order by `~/.scripts/env.sh`, so every shell gets the same values:
+
+- `~/.zshenv` (from `00-default`) sources the untracked, machine-specific `~/.zshenv.local` when present, then `~/.scripts/env.sh`. zsh reads it for every shell, including non-interactive `ssh host 'cmd'` and `zsh -c`.
+- `06-env.zsh` loads `~/.scripts/env.sh` again in interactive shells to restore the dotfiles PATH order after login-shell `path_helper` and `~/.zprofile`.
+- Pi runs tool commands with `bash -c` and no startup files, so `02-agentic-llms/.pi/agent/settings.json` sets `"shellCommandPrefix": ". ~/.scripts/env.sh"`.
+
+**Rules for env.d files:**
+- Filename format and numbering follow `shell_config` (e.g. `00-default.sh`, `20-agentic-llms.sh`, `31-android-sdk.sh`); each patch contributes its own file via stow
+- POSIX sh only, and print nothing: just `export` lines plus `path_prepend DIR` (move or add to the front) and `path_append DIR` (add to the end if missing), which `env.sh` defines while loading
+- No aliases, prompt, completion, key bindings, or tool init; those stay in `shell_config/*.zsh`
+
+| File | Patch | Purpose |
+|---|---|---|
+| `00-default.sh` | `00-default` | XDG dirs, `EDITOR`/`VISUAL`/`MANPAGER`, `GOPATH`, `OBSIDIAN`, `BUN_INSTALL`; PATH for `~/.scripts/bin`, bun, `~/.local/bin`, LM Studio, Go |
+| `20-agentic-llms.sh` | `02-agentic-llms` | `PI_CACHE_RETENTION=long` |
+| `31-android-sdk.sh` | `03-macos-addons` | `ANDROID_HOME` and PATH for the Homebrew Android SDK (macOS) |
+
 **Rules for shell_config files:**
 - Filename format: `NN-description.zsh` (two-digit prefix, e.g. `05-history.zsh`)
 - The number controls load order — lower numbers load first
@@ -288,17 +305,14 @@ The deprecated module includes:
 
 | File | Patch | Purpose |
 |---|---|---|
-| `01_add_scripts_to_path.zsh` | `00-default` | Adds `~/.scripts/bin` to PATH |
 | `02-advanced_terminal.zsh` | `00-default` | CLI aliases (eza, git, docker, nvim) and zoxide |
-| `03-neovim_default_editor.zsh` | `00-default` | Sets `EDITOR`, `VISUAL`, `MANPAGER` |
 | `04-zsh_bindkey.zsh` | `00-default` | Vi mode and advanced key bindings |
 | `05-history.zsh` | `00-default` | History file, size, and save settings |
-| `06-env.zsh` | `00-default` | Environment variables and PATH additions |
+| `06-env.zsh` | `00-default` | Loads `~/.scripts/env.sh` (env.d exports) and creates `$GOPATH/bin` |
 | `10-dwm.zsh` | `01-dwm-addons` | DWM-specific aliases (if installed) |
 | `20-agentic-llms.zsh` | `02-agentic-llms` | Agentic LLM tool aliases (e.g. `cdsp`) |
 | `21-pi-profiles.zsh` | `02-agentic-llms` | Pi prompt profile aliases (e.g. `piold`) |
 | `30-homebrew.zsh` | `03-macos-addons` | Homebrew environment and zsh completions (macOS) |
-| `31-android-sdk.zsh` | `03-macos-addons` | `ANDROID_HOME` and PATH for the Homebrew Android SDK (macOS) |
 | `32-tailscale.zsh` | `03-macos-addons` | `tailscale` alias to the macOS app's bundled CLI (macOS) |
 | `99-tool-init.zsh` | `00-default` | Tool initialisations: starship, nvm, bun, sdkman |
 
@@ -347,6 +361,8 @@ echo 'alias myalias="command"' > ~/.dotfiles/00-default/.scripts/shell_config/07
 ```
 
 The file will be symlinked into `~/.scripts/shell_config/` by stow and automatically sourced on next shell startup. Follow the numbering convention — use a prefix in the range that corresponds to the owning patch.
+
+Plain `export` lines and PATH additions go into the patch's `.scripts/env.d/NN-<patch>.sh` instead (POSIX sh, see the env.d rules above), so non-interactive shells and Pi commands get them too.
 
 ## Keyboard Shortcuts
 
