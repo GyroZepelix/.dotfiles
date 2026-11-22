@@ -16,6 +16,7 @@ skills:
       - dream
       - wiki-lint
       - gamemaster-implement
+      - lor-shared
       - episodic-recall
       - git-commit
       - ssh-manager
@@ -23,6 +24,9 @@ skills:
       - explain-change
       - places
       - computer-use
+      - wayfinder
+      - tmux-launch
+      - worktree
   - source: ssh://git@git.dgjalic.com:2222/dgjalic/audio-processing-noting-pipeline.git
     ref: master
     include:
