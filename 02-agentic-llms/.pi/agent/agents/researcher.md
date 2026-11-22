@@ -12,9 +12,9 @@ extensions:
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"
     paths:
       - packages/rpiv-web-tools/index.ts
-  - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
-    paths:
-      - index.ts
+  # - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
+  #   paths:
+  #     - index.ts
 system-prompt: append
 auto-exit: true
 ---

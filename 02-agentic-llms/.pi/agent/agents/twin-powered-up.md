@@ -23,12 +23,12 @@ extensions:
   - package: "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main"
     paths:
       - packages/rpiv-web-tools/index.ts
-  - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
-    paths:
-      - index.ts
   - package: "npm:@crazygit/pi-codex-image-gen"
     paths:
       - index.ts
+  # - package: "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat"
+  #   paths:
+  #     - index.ts
 subagent_agents:
   - scout
   - researcher
