@@ -1,7 +1,4 @@
 {
-	"additional_cooling_fan_speed": [
-		"20"
-	],
 	"compatible_printers": [
 		"Qidi Q1 Pro 0.4 nozzle"
 	],
@@ -28,17 +25,14 @@
 	],
 	"from": "User",
 	"hot_plate_temp": [
-		"70"
+		"75"
 	],
 	"hot_plate_temp_initial_layer": [
-		"70"
+		"75"
 	],
 	"inherits": "eSUN PETG @System",
 	"name": "eSUN ePETG-HF",
 	"nozzle_temperature": [
-		"250"
-	],
-	"nozzle_temperature_initial_layer": [
 		"250"
 	],
 	"nozzle_temperature_range_high": [
