@@ -1,11 +1,10 @@
 {
-  "lastChangelogVersion": "1.5.2",
+  "lastChangelogVersion": "1.6.0",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
     "git:git@github.com:GyroZepelix/rpiv-mono-selfhost-firecrawl@main",
     "https://github.com/monotykamary/pi-double-esc@main",
-    "git:git@github.com:tejesh0/pi-codex-search@pi_latest_compat",
     "git:git@github.com:GyroZepelix/pi-aware.git",
     "git:git@github.com:GyroZepelix/pi-interactive-subagents.git",
     "git:ssh://git@git.dgjalic.com:2222/dgjalic/library-of-alexandria.git",
@@ -24,7 +23,6 @@
   "enableInstallTelemetry": false,
   "theme": "dark",
   "externalEditor": "pi-tmux-editor",
-  "shellCommandPrefix": ". ~/.scripts/env.sh",
   "enabledModels": [
     "anthropic/claude-opus-5-5",
     "anthropic/claude-fable-5-1",
@@ -52,8 +50,12 @@
   },
   "extensionChangelogVersions": {
     "{\"source\":\"git:github.com/GyroZepelix/pi-cursor-provider\",\"scope\":\"user\"}": "0.7.0",
-    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.5.0",
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.6.0",
     "{\"source\":\"npm:@rahularya01/pi-cursor\",\"scope\":\"user\"}": "1.4.39",
-    "{\"source\":\"git:git@github.com:GyroZepelix/pi-cursor.git\",\"scope\":\"user\"}": "1.4.39"
-  }
+    "{\"source\":\"git:git@github.com:GyroZepelix/pi-cursor.git\",\"scope\":\"user\"}": "1.4.39",
+    "{\"source\":\"..\",\"scope\":\"project\"}": "0.48.0",
+    "{\"source\":\"../\",\"scope\":\"project\"}": "3.6.0",
+    "{\"source\":\"npm:@gotgenes/pi-github-tools\",\"scope\":\"project\"}": "6.1.0"
+  },
+  "shellCommandPrefix": ". ~/.scripts/env.sh"
 }
