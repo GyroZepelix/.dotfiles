@@ -13,8 +13,6 @@ builtin-tools:
   - codemode
 mcp-servers:
   - context7
-  - forgejo_personal
-  - forgejo_ikigaiway
 extensions:
   - package: "npm:@gotgenes/pi-anthropic-auth"
     paths:
