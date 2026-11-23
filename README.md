@@ -154,6 +154,25 @@ Each step is prompted and can be skipped:
 - Install TPM (Tmux Plugin Manager)
 - Change default shell to ZSH (`chsh -s zsh`)
 
+### Fedora
+
+On a fresh Fedora Workstation install, clone the repository as above, then run:
+
+```bash
+cd ~/.dotfiles/install-scripts
+chmod +x fedora-quick-setup.sh
+./fedora-quick-setup.sh
+```
+
+Each step is prompted and can be skipped:
+- Install base packages with `dnf`, plus `starship` and `yazi` from COPR (`atim/starship`, `lihaohong/yazi`)
+- Install JetBrains Mono Nerd Font into `~/.local/share/fonts`
+- Symlink `00-default` with GNU Stow
+- Install Loremaster (`lore`) with `go install`
+- Install TPM (Tmux Plugin Manager)
+- Change default shell to ZSH
+- Set up Kanata (`cargo install kanata`, uinput/udev, systemd user service); reboot afterwards
+
 ### Manual Installation
 
 If you prefer manual installation:
@@ -266,6 +285,7 @@ The deprecated module includes:
 │
 └── install-scripts/      # Automated setup
     ├── arch-quick-setup.sh
+    ├── fedora-quick-setup.sh
     ├── patch-dwm.sh
     ├── patch-deprecated.sh
     └── systemd-services/ # Service definitions
