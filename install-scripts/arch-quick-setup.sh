@@ -30,6 +30,16 @@ else
   echo "Skipping symlinking."
 fi
 
+# --- Install Loremaster ---
+read -p "Install Loremaster (lore CLI via go install)? [y/N] " resp
+if [[ "$resp" =~ ^[Yy]$ ]]; then
+  echo -e "\n--- Installing Loremaster..."
+  command -v go >/dev/null 2>&1 || sudo pacman -Sy --noconfirm go
+  GOPATH="${GOPATH:-$HOME/.go}" go install github.com/GyroZepelix/loremaster/cmd/lore@latest
+else
+  echo "Skipping Loremaster."
+fi
+
 # --- Install TPM for Tmux ---
 read -p "Install TPM for Tmux? [y/N] " resp
 if [[ "$resp" =~ ^[Yy]$ ]]; then

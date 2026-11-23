@@ -73,6 +73,15 @@ else
   echo "Skipping macOS-specific dotfiles symlinking."
 fi
 
+# --- Install Loremaster ---
+if command -v brew >/dev/null 2>&1 && ask "Install Loremaster (lore CLI via go install)"; then
+  echo -e "\n--- Installing Loremaster..."
+  command -v go >/dev/null 2>&1 || brew install go
+  GOPATH="${GOPATH:-$HOME/.go}" go install github.com/GyroZepelix/loremaster/cmd/lore@latest
+else
+  echo "Skipping Loremaster."
+fi
+
 # --- Karabiner-Elements ---
 if command -v brew >/dev/null 2>&1 && ask "Install Karabiner-Elements for macOS keyboard remapping"; then
   echo -e "\n--- Installing Karabiner-Elements..."

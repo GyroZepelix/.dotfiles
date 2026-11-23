@@ -5,7 +5,5 @@
 .tmux/plugins/
 default/.config/tmux/plugins/
 default/.tmux
-/spec
-/wiki
 .DS_Store
 __pycache__/

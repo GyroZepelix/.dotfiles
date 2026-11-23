@@ -47,6 +47,15 @@ else
   echo "Skipping agentic LLM dotfiles symlinking."
 fi
 
+# --- Install Loremaster ---
+if ask "Install Loremaster (lore CLI via go install)"; then
+  echo -e "\n--- Installing Loremaster..."
+  command -v go >/dev/null 2>&1 || pkg install -y golang
+  GOPATH="${GOPATH:-$HOME/.go}" go install github.com/GyroZepelix/loremaster/cmd/lore@latest
+else
+  echo "Skipping Loremaster."
+fi
+
 # --- Clone Neovim config ---
 if ask "Clone Neovim config (GyroZepelix/init.lua) into ~/.config/nvim"; then
   echo -e "\n--- Cloning Neovim config..."
