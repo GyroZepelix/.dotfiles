@@ -8,7 +8,7 @@ builtin-tools:
   - ls
 model-chain:
   - cli: agy
-    model: gemini-4-hydrogen
+    model: gemini-3.8-flash
     thinking: medium
   - cli: pi
     model: anthropic/claude-haiku-5-5
