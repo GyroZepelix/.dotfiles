@@ -6,7 +6,8 @@ thinking: medium
 builtin-tools:
   - codemode
 mcp-servers:
-  - cua-sandbox
+  - name: cua-sandbox
+    required: true
 extensions:
   - package: "npm:@gotgenes/pi-anthropic-auth"
     paths:
