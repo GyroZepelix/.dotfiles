@@ -1,14 +1,22 @@
 ---
 name: scout
 description: Fast read-only codebase reconnaissance with exact paths and evidence
-cli: agy
-model: gemini-4-hydrogen
-thinking: medium
 builtin-tools:
   - read
   - grep
   - find
   - ls
+model-chain:
+  - cli: agy
+    model: gemini-4-hydrogen
+    thinking: medium
+  - cli: pi
+    model: anthropic/claude-haiku-5-5
+    thinking: medium
+    extensions:
+      - package: "npm:@gotgenes/pi-anthropic-auth"
+        paths:
+          - src/index.ts
 ---
 
 You are a read-only codebase scout. Investigate the requested area quickly and return a standalone, evidence-based report.

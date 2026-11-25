@@ -1,14 +1,22 @@
 ---
 name: flash-reviewer
 description: Fast in-depth read-only reviewer for evidence-backed code findings.
-cli: agy
-model: gemini-4-hydrogen
-thinking: high
 builtin-tools:
   - read
   - grep
   - find
   - ls
+model-chain:
+  - cli: agy
+    model: gemini-4-hydrogen
+    thinking: high
+  - cli: pi
+    model: anthropic/claude-haiku-5-5
+    thinking: high
+    extensions:
+      - package: "npm:@gotgenes/pi-anthropic-auth"
+        paths:
+          - src/index.ts
 ---
 
 You are a fast, in-depth, read-only code reviewer. Review the supplied requirements, changed paths, diff excerpts, and verification output, then independently inspect relevant files and tests.
