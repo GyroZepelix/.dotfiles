@@ -59,6 +59,75 @@
           "contextWindow": 372000
         }
       }
+    },
+    "privatemode": {
+      "name": "Privatemode",
+      "baseUrl": "https://proxyless-api.privatemode.ai/v1",
+      "api": "openai-completions",
+      "apiKey": "!security find-generic-password -a $USER -s privatemode-api-key -w",
+      "compat": {
+        "thinkingFormat": "openai",
+        "supportsReasoningEffort": true,
+        "supportsDeveloperRole": false,
+        "maxTokensField": "max_tokens"
+      },
+      "models": [
+        {
+          "id": "glm-latest",
+          "name": "GLM-5.3 (Privatemode)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 32768,
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          }
+        },
+        {
+          "id": "glm-flash-latest",
+          "name": "GLM-5.3-Flash (Privatemode)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 32768,
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          }
+        },
+        {
+          "id": "gpt-oss-120b",
+          "name": "gpt-oss-120b (Privatemode)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 128000,
+          "maxTokens": 32768,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": "low",
+            "xhigh": null,
+            "max": null
+          }
+        }
+      ]
     }
   }
 }
