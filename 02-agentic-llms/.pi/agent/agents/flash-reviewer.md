@@ -2,7 +2,7 @@
 name: flash-reviewer
 description: Fast in-depth read-only reviewer for evidence-backed code findings.
 cli: agy
-model: gemini-3.8-flash
+model: gemini-4-hydrogen
 thinking: high
 builtin-tools:
   - read
